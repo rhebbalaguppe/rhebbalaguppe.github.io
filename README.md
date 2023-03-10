@@ -8,5 +8,5 @@ To commit and push the changes
 	cd /home/admin/ramya-PhD/rhebbalaguppe.github.io; 
 	git add ./ ; 
 	git commit -m "Updating website";
-	git push origin main;
+	git push origin master;
 ```
