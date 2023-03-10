@@ -109,22 +109,9 @@
           <!-- <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">-->  <!-- For oral papers uncomment this line -->
             <td style="padding:20px;width:25%;vertical-align:middle">
               <div class="one">
-                <div class="two" id='transfer4D_image'><video  width=100%  muted autoplay loop> <!-- Note:- Make sure to change `transfer4D_image` for the new paper -->
-                <source src="images/Transfer4D-CVPR-cropped.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/Transfer4D-CVPR-cropped.jpeg' width="160">
+                <img src='images/data_diet.png' width="160">
               </div>
-              <script type="text/javascript">
-                function dreamfusion_start() {
-                  document.getElementById('transfer4D_image').style.opacity = "1"; // Note:- Make sure to change `transfer4D_image` for the new paper
-                }
-
-                function dreamfusion_stop() {
-                  document.getElementById('transfer4D_image').style.opacity = "0"; // Note:- Make sure to change `transfer4D_image` for the new paper
-                }
-                dreamfusion_stop()
-              </script>
+              
             </td>
             <td style="padding:20px;width:75%;vertical-align:middle">
               <a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html">
@@ -137,14 +124,16 @@
               <a href="https://scholar.google.com/citations?hl=en&user=f70Rc2wAAAAJ">Gautam Shroff</a>,
               <a href="https://scholar.google.com/citations?user=M5MIeROF8JYC&hl=en">Lovekesh Vig</a>,
               <br>
-              <em>IEEE/CVF Winter Conference on Applications of Computer Vision</em>, 2023 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
+              <em>IEEE/CVF Winter Conference on Applications of Computer Vision</em>, 2023  &nbsp  -- <font color="red"><strong>([Spotlight Presentation]</strong></font> -->
               <br>
-              <a href="https://transfer4d.github.io/#">project page</a>
+              <a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html/#">project page</a>
               <!-- / <a href="">arXiv</a> -->
               <!-- / <a href="">Additional</a> -->
               <p></p>
               <p>
-              Transfer4D transfers motion from a commodity depth sensor to a virtual model.
+              We demonstrate state-of-the-art Deep Neural Network calibration performance via proposing a differentiable loss term
+that can be used effectively in gradient descent optimisation and dynamic data pruning strategy not only enhances legitimate
+high confidence samples to enhance trust in DNN classifiers but also reduce the training time for calibration.
               </p>
             </td>
           </tr>
