@@ -57,6 +57,53 @@
 
           <!-- Add new papers here -->
 
+<!-- ReMOVE  -->
+
+          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
+          <!-- <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">-->  <!-- For oral papers uncomment this line -->
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='transfer4D_image'><video  width=100%  muted autoplay loop> <!-- Note:- Make sure to change `transfer4D_image` for the new paper -->
+                <source src="images/Transfer4D-CVPR-cropped.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src='images/ReMOVE_Teaser.png' width="160" height ="200">
+              </div>
+              <script type="text/javascript">
+                function dreamfusion_start() {
+                  document.getElementById('transfer4D_image').style.opacity = "1"; // Note:- Make sure to change `transfer4D_image` for the new paper
+                }
+
+                function dreamfusion_stop() {
+                  document.getElementById('transfer4D_image').style.opacity = "0"; // Note:- Make sure to change `transfer4D_image` for the new paper
+                }
+                dreamfusion_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://dreamfusion3d.github.io/">
+                <papertitle>ReMOVE: A Reference-free Metric for Object Erasure</papertitle>
+              </a>
+              <br>
+              <a Aditya Chandrasekar /a>,
+              <a Goirik Chakrabarty /a>,
+              <a Jai Bardhan /a>,
+              <strong>Ramya Hebbalaguppe</strong>,
+              <a href="https://eecs.iisc.ac.in/people/prathosh-a-p/">Prathosh AP</a>,
+              <br>
+              <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPRW) The First Workshop on the Evaluation of Generative Foundation Models</em>, 2023 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
+              <br>
+              <a href="https://github.com/chandrasekaraditya/ReMOVE">project page</a>
+              <!-- / <a href="">arXiv</a> -->
+              <!-- / <a href="">Additional</a> -->
+              <p></p>
+              <p>
+              We introduce ReMOVE, a novel reference-free metric for assessing object erasure efficacy in diffusion-based image editing models post-generation. Unlike existing measures such as LPIPS and CLIPScore, ReMOVE addresses the challenge of evaluating inpainting without a reference image, common in practical scenarios. It effectively distinguishes between object removal and replacement. This is a key issue in diffusion models due to stochastic nature of image generation. Traditional metrics fail to align with the intuitive definition of inpainting, which aims for (1) seamless object removal within masked regions (2) while preserving the background continuity. ReMOVE not only correlates with state-of-the-art metrics and aligns with human perception but also captures the nuanced aspects of the inpainting process, providing a finer-grained evaluation of the generated outputs.
+              </p>
+            </td>
+          </tr>
+      
+          <!--\ ReMOVE  -->
 
 
           <!-- Transfer4D  -->
