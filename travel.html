@@ -3,31 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Image Gallery</title>
+    <title>Image Gallery with Captions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .gallery-item {
+            width: 400px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+        }
+        .gallery-item .caption {
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-
-<h1>Image Gallery</h1>
-
-<!-- Images -->
-<div class="image-grid">
-    <img src="images\LombardStreetSFOAshramVisit.jpg" alt="Image 1">
-    <img src="image2.jpg" alt="Image 2">
-    <img src="image3.jpg" alt="Image 3">
-    <img src="image4.jpg" alt="Image 4">
-    <img src="image5.jpg" alt="Image 5">
-    <img src="image6.jpg" alt="Image 6">
-    <img src="image7.jpg" alt="Image 7">
-    <img src="image8.jpg" alt="Image 8">
-    <img src="image9.jpg" alt="Image 9">
-    <img src="image10.jpg" alt="Image 10">
-    <img src="image11.jpg" alt="Image 11">
-    <img src="image12.jpg" alt="Image 12">
-    <img src="image13.jpg" alt="Image 13">
-    <img src="image14.jpg" alt="Image 14">
-    <img src="image15.jpg" alt="Image 15">
-    <img src="image16.jpg" alt="Image 16">
-</div>
-
+    <h1>Photo Gallery of pictures (many taken by me when I'm not on the frame)</h1>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="images\Lousiana_gator_Swamp.jpg" alt="Image 1">
+            <div class="caption"><b>[Jun'22: New Orleans, USA]</b> It’s that moment when you try to look smiling and friendly while silently screaming, 'Please don’t eat me!' Stress level: Jurassic Park. When our alligator baby chooses me and definitely knows how to say hello. It’s just that its idea of a friendly greeting is to invite me to stick out my hand and get a ‘snappy’ petting session! </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Borobudur.jpg" alt="Image 12">
+            <div class="caption"><b>[Indonesia, Oct'10]</b> Silhouette of Buddha at Borobodur. The image was captured at Sunrise, around 5AM. The Borobodur sunrise tour is something people visiting Indonesia cannot miss. The tranquility it had offered is etched deep in my mind. </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images\Krabi_2011.JPG" alt="Image 3">
+            <div class="caption"><b>[Aug'11: Khao Sok National Park, Thailand]</b> Vacationing in Khao Sok was a blast! Our treehouse buddy was this guy—a snake who clearly ran the local branch of a Computer Vision Corp. Just that it was truly my energy minimizing, and a deformable spline like in vision. On the same treehouse as ours it appeared to hold board meetings and the birds gossip about possibly the futility of human existence! </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images\syracruse.JPG" alt="Image 4">
+            <div class="caption"><b>[Jul'15: Syracruse, Italy]</b>, Ah, Cruise in Syracuse: A greek city like town with significant historical roots and Syracuse, the birthplace of Archimedes, where you can almost hear him yelling, "Eureka!". Back in the day, I was as skinny as a Greek godess— well, at least in my dreams. Now, fighting an eternal battle with my waistband. Appears battles are perrenial, for eg., battling for GPUs/space in this wild AI world. </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/deerAtKaziranga.JPG" alt="Image 5">
+            <div class="caption"><b>[Apr'12: Kaziranga National Park, India]</b> In the lush landscape of Kaziranga, a solitary deer stood near the placid lake, feeling a bit like the last guest at a party that ended hours ago. As the sun dipped below the horizon, casting a the deers own shadow over the water, the deer sighed dramatically, thinking, “So, this is what they meant by ‘me-time.’” </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/FoxAndesMountainRange_chile.JPG" alt="Image 6">
+            <div class="caption"><b>[Oct'15: Andes mountain range, Chile, South America]</b> Andes's most elusive runway model is this fox. The Andean fox sports a dense, chic reddish-brown coat and thrives in various environments—unlike us, who demand AC and heating even when the weather is perfectly fine. Who's the real adaptable creature here? Foxes in Chile are like expert ninjas—they’re elusive, often vanishing into thin air. But wave around some food, and suddenly they become as common as WiFi in a coffee shop! </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/LadyonaHammock.jpg" alt="Image 7">
+            <div class="caption"><b>[Oct'09: Botanical gardens, Singapore]</b> As you lounge in your royal hammock, with grace and in a state of ultimate relaxation. Here's to a day full of gentle breeze, zero mosquito bites in SG humid weather, and endless hammock-time dreams.</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Delhi-Dec-2016.jpg" alt="Image 8">
+            <div class="caption"><b>[Dec'16: Pepsi's kids, Delhi]</b> So what if the mom died....how can we let these cute puppies die without food. Thanks to god for giving me wisdom to keep them warm and giving them life. Caltech hoodie put to some use. </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/goose.jpg" alt="Image 9">
+            <div class="caption">[Mar'18:Canada Goose, Santa Rosa, USA]</b> Geese aren't plain interested to pose - bad subjects ;-)</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/venice_OCt12.jpg" alt="Image 11">
+            <div class="caption"><b>[Venice, oct'12]</b> Us, struck by Fernweh</div></div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Sunset_DUbai_2016.jpg" alt="Image 13">
+            <div class="caption"><b>[Dubai, 2016]</b> Deep in thought as the jet and the sunset are engaged in a mesmerizing dance, making me a luckiest passenger on earth. </div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Carlow_Ireland.jpg" alt="Image 14">
+            <div class="caption"><b>[Carlow, Ireland, Apr'12]</b> Amidst the chilly breeze and radiant sunlight, we try to warm up our frozen fingers in the winter sun’s rays. </div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 15">
+            <div class="caption">Caption 15</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 16">
+            <div class="caption">Caption 16</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 17">
+            <div class="caption">Caption 17</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 18">
+            <div class="caption">Caption 18</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 19">
+            <div class="caption">Caption 19</div>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/200" alt="Image 20">
+            <div class="caption">Caption 20</div>
+        </div>
+                <div class="gallery-item">
+            <img src="images\LombardStreetSFOAshramVisit.jpg" alt="Image 2">
+            <div class="caption"> <b>[Mar'17: San Francisco]</b> On the way to Vedanta Society of Northern California, SFO, USA</div>
+        </div>
+    </div>
 </body>
 </html>
