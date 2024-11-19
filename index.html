@@ -62,6 +62,35 @@
 
           <!-- Add new papers here -->
 
+                    <!-- LOMOE  -->
+
+          
+            <td style="padding:20px;width:25%;vertical-align:middle">
+                    <img src='images/StyleCL.png' width="200" height ="150">
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a>
+                <papertitle>Lifelong Learning in StyleGAN through Latent Subspaces
+</papertitle>
+              </a>
+              <br>
+              <a href="https://dblp.org/pid/255/5908.html">Adarsh K</a>,
+              <a> Anmol Garg </a>,
+              <strong>Ramya Hebbalaguppe</strong>,
+              <a href="https://eecs.iisc.ac.in/people/prathosh-a-p/">Prathosh AP</a>,
+              <br>
+              <em>Transactions on machine Learning Research (accepted) </em>, 2024 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
+              <br>
+              <!-- <a href="https://arxiv.org/abs/2403.00437">[paper]</a> -->
+              <!-- / <a href="">arXiv</a> -->
+              <!-- / <a href="">Additional</a> -->
+              <p></p>
+              <p>
+              StyleGAN is one of the most versatile generative models that have emerged in recent times. However, when it is trained continually on a stream of data (potentially previously unseen distributions), it tends to forget the distribution it has learned, as is the case with any other generative model, due to catastrophic forgetting. Recent studies have shown that the latent space of StyleGAN is very versatile, as data from a variety of distributions can be inverted onto it. In this paper, we propose StyleCL, a method that leverages this property to enable lifelong learning in StyleGAN without forgetting. Specifically, given a StyleGAN trained on a certain task (dataset), we propose to learn a latent subspace characterized by a set of dictionary vectors in its latent space, one for each novel, unseen task (or dataset). We also learn a relatively small set of parameters (feature adaptors) in the weight space to complement the dictionary learning in the latent space. Furthermore, we introduce a method that utilizes the similarity between tasks to effectively reuse the feature adaptor parameters from the previous tasks, aiding in the learning process for the current task at hand. Our approach guarantees that the parameters from previous tasks are reused only if they contribute to a beneficial forward transfer of knowledge. Remarkably, StyleCL avoids catastrophic forgetting because the set of dictionary and the feature adaptor parameters are unique for each task. We demonstrate that our method, StyleCL, achieves better generation quality on multiple datasets with significantly fewer additional parameters per task compared to previous methods. This is a consequence of learning task-specific dictionaries in the latent space, which has a much lower dimensionality compared to the weight space.
+              </p>
+            </td>
+          </tr>
+
 
           <!-- KD(C)  -->
 
@@ -87,7 +116,7 @@
               <!-- / <a href="">Additional</a> -->
               <p></p>
               <p>
-Bigger DNN models aren't necessarily better models. From a deployment standpoint, the size of the weights affects the inference time and storage constraints on edge devices which is crucial in applications such as AR. Our proposed algorithm has the potential to be employed in trustworthy lightweight models on the edge. In our endeavor to deploy lightweight models that are also reliable, we delve into the realm of knowledge distillation, extending its traditional function of transferring accuracy from teacher networks to student networks. Through this exploration, we have discovered a novel approach to calibrating models effectively. We present, arguably for the first time, compelling evidence that model calibration can be achieved without sacrificing accuracy through knowledge distillation. Our implementation of knowledge distillation not only guarantees enhanced model calibration but also outperforms the accuracy obtained through conventional training from scratch in specific cases. This innovative approach enables us to simultaneously accomplish the dual objectives of optimal calibration and improved accuracy.
+ Knowledge Distillation for Calibration (</strong>KD(C)</strong>) endeavors to deploy <strong>lightweight</strong> models that are also <strong>reliable</strong>, we delve into the realm of knowledge distillation, extending its traditional function of transferring accuracy from teacher networks to student networks. Through this exploration, we have discovered a novel approach to calibrating models effectively. We present, arguably for the first time, compelling theoretical as well as empirical evidence that model calibration can be achieved without sacrificing accuracy through knowledge distillation. Our implementation of knowledge distillation not only guarantees enhanced model calibration but also outperforms the accuracy obtained through conventional training from scratch in specific cases. This innovative approach enables us to simultaneously accomplish the dual objectives of optimal calibration and improved accuracy.
               </p>
             </td>
           </tr>

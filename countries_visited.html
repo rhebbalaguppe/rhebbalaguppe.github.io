@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Explorer and a Part-Time Researcher - Who says research ain't fun</title>
+    <!-- Link to Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" />
+    <style>
+        /* Set the map size */
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countries I've Visited</h1>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([20.0, 0.0], 2); // World view
+
+        // Set up the map layer (using OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define the countries visited with their coordinates
+        var visitedCountries = [
+            { name: 'Italy', lat: 41.8719, lon: 12.5674 },
+            { name: 'Vatican', lat: 41.9029, lon: 12.4534 },
+            { name: 'France', lat: 46.6034, lon: 1.8883 },
+            { name: 'Ireland', lat: 53.1424, lon: -7.6921 },
+            { name: 'United Kingdom', lat: 51.5074, lon: -0.1278 },
+            { name: 'Australia', lat: -25.2744, lon: 133.7751 },
+            { name: 'Chile', lat: -35.6751, lon: -71.5430 },
+            { name: 'United States', lat: 37.0902, lon: -95.7129 },
+            { name: 'United Arab Emirates (UAE)', lat: 23.4241, lon: 53.8478 },
+            { name: 'Singapore', lat: 1.3521, lon: 103.8198 },
+            { name: 'Indonesia', lat: -0.7893, lon: 113.9213 },
+            { name: 'Thailand', lat: 15.8700, lon: 100.9925 },
+            { name: 'Vietnam', lat: 14.0583, lon: 108.2772 },
+            { name: 'Malaysia', lat: 4.2105, lon: 101.9758 },
+            { name: 'Japan', lat: 36.2048, lon: 138.2529 },
+            { name: 'India', lat: 20.5937, lon: 78.9629 },
+            { name: 'Sri Lanka', lat: 7.8731, lon: 80.7718 },
+            { name: 'Sicily', lat: 37.6000, lon: 13.3650 }, // Sicily is an island of Italy
+            { name: 'Austria', lat: 47.5162, lon: 14.5501 },
+            { name: 'Canada', lat: 56.1304, lon: -106.3468 },
+            { name: 'Mexico', lat: 23.6345, lon: -102.5528 },
+            { name: 'Greece', lat: 39.0742, lon: 21.8243 },
+            { name: 'Germany', lat: 51.1657, lon: 10.4515 }
+        ];
+
+        // Loop through the countries and add markers for each one
+        visitedCountries.forEach(function(country) {
+            L.marker([country.lat, country.lon])
+                .addTo(map)
+                .bindPopup('<b>' + country.name + '</b>')
+                .openPopup();
+        });
+
+    </script>
+</body>
+</html>
