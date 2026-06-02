@@ -3,209 +3,653 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Photos I Took</title>
+<title>Photos I Took | Ramya Hebbalaguppe</title>
 
 <style>
+    :root {
+        --ink: #283044;
+        --muted: #657084;
+        --paper: #fffaf6;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: #ffffff;
+        --pastel-blue: #d9e9f5;
+        --pastel-lilac: #eadff3;
+        --pastel-peach: #f8dfd0;
+        --pastel-mint: #dbeee4;
+        --accent: #7fa6c7;
+        --accent-dark: #496f91;
+        --ring: rgba(127, 166, 199, 0.35);
+        --shadow: 0 18px 50px rgba(45, 58, 78, 0.14);
+        --soft-shadow: 0 8px 24px rgba(45, 58, 78, 0.10);
+        --radius-xl: 28px;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 20px;
-        text-align: center;
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+            radial-gradient(circle at top left, rgba(217, 233, 245, 0.95), transparent 34rem),
+            radial-gradient(circle at top right, rgba(248, 223, 208, 0.8), transparent 32rem),
+            linear-gradient(135deg, #fffaf6 0%, #f7fbff 55%, #fff8f3 100%);
+        min-height: 100vh;
+    }
+
+    a { color: var(--accent-dark); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 40px;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    .brand {
+        font-weight: 750;
+        letter-spacing: 0.02em;
+        color: var(--ink);
+    }
+
+    .navlinks { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+
+    .hero {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(127, 166, 199, 0.25);
+        border-radius: var(--radius-xl);
+        padding: clamp(28px, 5vw, 56px);
+        background:
+            linear-gradient(135deg, rgba(255,255,255,0.86), rgba(255,255,255,0.58)),
+            linear-gradient(120deg, rgba(217,233,245,0.9), rgba(234,223,243,0.55), rgba(248,223,208,0.72));
+        box-shadow: var(--shadow);
+        margin-bottom: 24px;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 999px;
+        right: -70px;
+        top: -80px;
+        background: rgba(219, 238, 228, 0.85);
+        filter: blur(1px);
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(127, 166, 199, 0.28);
+        color: var(--accent-dark);
+        font-size: 13px;
+        font-weight: 650;
+        margin-bottom: 14px;
+    }
+
+    h1 {
+        position: relative;
+        margin: 0;
+        font-size: clamp(34px, 6vw, 64px);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+        max-width: 780px;
+        z-index: 1;
+    }
+
+    .hero p {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
+        margin: 18px 0 0;
+        font-size: clamp(16px, 2vw, 19px);
+        line-height: 1.65;
+        color: var(--muted);
+    }
+
+    .hero-actions {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: rgba(255,255,255,0.75);
+        border: 1px solid rgba(127, 166, 199, 0.28);
+        color: var(--ink);
+        font-weight: 650;
+        box-shadow: 0 4px 14px rgba(45, 58, 78, 0.06);
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin: 20px 0 26px;
+    }
+
+    .stat {
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+        border: 1px solid rgba(127, 166, 199, 0.22);
+        padding: 18px;
+        box-shadow: var(--soft-shadow);
+    }
+
+    .stat strong { display: block; font-size: 30px; letter-spacing: -0.04em; }
+    .stat span { color: var(--muted); font-size: 14px; }
+
+    .gallery-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 280px;
+        gap: 20px;
+        align-items: start;
     }
 
     .slideshow-container {
-        max-width: 800px;
-        margin: 30px auto;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-        overflow: hidden;
         position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-xl);
+        background: var(--surface-strong);
+        border: 1px solid rgba(127, 166, 199, 0.22);
+        box-shadow: var(--shadow);
     }
 
     .slide {
         display: none;
-        animation: fade 1s ease-in-out;
+        animation: fade 0.55s ease-in-out;
     }
 
     @keyframes fade {
-        from { opacity: 0.3; }
-        to { opacity: 1; }
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .image-frame {
+        background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-peach));
+        min-height: 420px;
+        display: grid;
+        place-items: center;
+        padding: 14px;
     }
 
     .slide img {
         width: 100%;
-        height: auto;
+        max-height: 660px;
+        object-fit: contain;
+        border-radius: 20px;
+        box-shadow: 0 10px 28px rgba(38, 49, 68, 0.16);
+        background: #fff;
+    }
+
+    .caption-panel {
+        display: grid;
+        gap: 8px;
+        padding: 20px 24px 24px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,250,246,0.96));
+    }
+
+    .slide-kicker {
+        color: var(--accent-dark);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        font-weight: 800;
     }
 
     .caption {
-        padding: 15px;
-        font-size: 14px;
-        color: #333;
+        font-size: 15.5px;
+        line-height: 1.72;
+        color: #3b4558;
         text-align: left;
     }
 
+    .caption b { color: var(--ink); }
+
     .counter {
         position: absolute;
-        top: 10px;
-        right: 15px;
-        background: rgba(0,0,0,0.6);
-        color: #fff;
-        padding: 4px 10px;
-        border-radius: 12px;
+        top: 18px;
+        right: 18px;
+        z-index: 3;
+        background: rgba(255,255,255,0.82);
+        color: var(--ink);
+        padding: 8px 13px;
+        border-radius: 999px;
         font-size: 13px;
+        font-weight: 750;
+        border: 1px solid rgba(127, 166, 199, 0.24);
+        box-shadow: 0 5px 18px rgba(45, 58, 78, 0.12);
+        backdrop-filter: blur(10px);
     }
 
     .controls {
-        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 16px 0 0;
     }
 
-    button {
-        padding: 10px 18px;
-        margin: 5px;
+    button { font-family: inherit; }
+
+    .control-btn {
+        padding: 11px 16px;
         font-size: 14px;
         cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        background: #0077cc;
-        color: #fff;
+        border: 1px solid rgba(127, 166, 199, 0.32);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.82);
+        color: var(--ink);
+        font-weight: 750;
+        box-shadow: 0 7px 18px rgba(45, 58, 78, 0.10);
+        transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
-    button:hover {
-        background: #005fa3;
+    .control-btn:hover {
+        transform: translateY(-1px);
+        background: #ffffff;
+        box-shadow: 0 10px 24px rgba(45, 58, 78, 0.14);
+    }
+
+    .side-panel {
+        border-radius: var(--radius-xl);
+        background: rgba(255,255,255,0.72);
+        border: 1px solid rgba(127, 166, 199, 0.22);
+        box-shadow: var(--soft-shadow);
+        padding: 18px;
+        position: sticky;
+        top: 18px;
+    }
+
+    .side-panel h2 {
+        margin: 0 0 6px;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+    }
+
+    .side-panel p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .thumb-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        max-height: 584px;
+        overflow: auto;
+        padding-right: 2px;
+    }
+
+    .thumb {
+        cursor: pointer;
+        padding: 0;
+        border: 2px solid transparent;
+        border-radius: 13px;
+        overflow: hidden;
+        aspect-ratio: 1;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(45, 58, 78, 0.09);
+    }
+
+    .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .thumb.active { border-color: var(--accent-dark); box-shadow: 0 0 0 4px var(--ring); }
+
+    .note {
+        margin: 28px auto 0;
+        max-width: 760px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    footer {
+        margin-top: 30px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+        .gallery-shell { grid-template-columns: 1fr; }
+        .side-panel { position: static; }
+        .thumb-grid { grid-template-columns: repeat(6, 1fr); max-height: none; }
+    }
+
+    @media (max-width: 620px) {
+        .page { width: min(100% - 22px, 1120px); padding-top: 18px; }
+        .topbar { align-items: flex-start; flex-direction: column; }
+        .stats { grid-template-columns: 1fr; }
+        .hero { padding: 26px; }
+        .image-frame { min-height: 290px; padding: 10px; }
+        .caption-panel { padding: 18px; }
+        .thumb-grid { grid-template-columns: repeat(4, 1fr); }
     }
 </style>
 </head>
 
 <body>
+<main class="page">
+    <nav class="topbar" aria-label="Page navigation">
+        <div class="brand">Ramya Hebbalaguppe</div>
+        <div class="navlinks">
+            <a href="index.html">Home</a>
+            <a href="countries_visited.html">Countries visited</a>
+            <a href="mailto:ramya.murthy@gmail.com">Email</a>
+        </div>
+    </nav>
 
-<h1>Photos I took (When I wasn't in them)</h1>
-<h2><a href="countries_visited.html">BusyTravelling</a></h2>
+    <section class="hero">
+        <div class="eyebrow">✦ Travel notes · photos · small stories</div>
+        <h1>Photos I took when I wasn’t in them</h1>
+        <p>
+            A personal gallery of landscapes, animals, cities, quiet corners, and a few funny field notes from travel.
+            The style follows the same soft pastel theme as the homepage, while keeping the slideshow playful and easy to browse.
+        </p>
+        <div class="hero-actions">
+            <a class="pill" href="countries_visited.html">🌍 Explore visited places</a>
+            <a class="pill" href="index.html">← Back to research homepage</a>
+        </div>
+    </section>
 
-<div class="slideshow-container" id="slideshow">
-    <div class="counter" id="counter"></div>
+    <section class="stats" aria-label="Travel gallery summary">
+        <div class="stat"><strong>19</strong><span>photo stories</span></div>
+        <div class="stat"><strong>4</strong><span>continents represented</span></div>
+        <div class="stat"><strong>∞</strong><span>curiosity, wildlife, and wanderlust</span></div>
+    </section>
 
-    <!-- 1 -->
-    <div class="slide">
-        <img src="images/Lousiana_gator_Swamp.jpg">
-        <div class="caption"><b>[Jun'22: New Orleans, USA]</b> It’s that moment when you try to look smiling and friendly while silently screaming, 'Please don’t eat me!' Stress level: Jurassic Park. When our alligator baby chooses me and definitely knows how to say hello. It’s just that its idea of a friendly greeting is to invite me to stick out my hand and get a ‘snappy’ petting session!</div>
-    </div>
+    <section class="gallery-shell">
+        <div>
+            <div class="slideshow-container" id="slideshow">
+                <div class="counter" id="counter"></div>
+                <article class="slide" aria-label="Travel photo 1 of 19">
+                    <div class="image-frame">
+                        <img src="images/Lousiana_gator_Swamp.jpg" alt="Jun'22: New Orleans, USA">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 01</div>
+                        <div class="caption"><b>[Jun'22: New Orleans, USA]</b> It’s that moment when you try to look smiling and friendly while silently screaming, 'Please don’t eat me!' Stress level: Jurassic Park. When our alligator baby chooses me and definitely knows how to say hello. It’s just that its idea of a friendly greeting is to invite me to stick out my hand and get a ‘snappy’ petting session!</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 2 of 19">
+                    <div class="image-frame">
+                        <img src="images/Borobudur.jpg" alt="Indonesia, Oct'10">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 02</div>
+                        <div class="caption"><b>[Indonesia, Oct'10]</b> Silhouette of Buddha at Borobodur. The image was captured at Sunrise, around 5AM. The Borobodur sunrise tour is something people visiting Indonesia cannot miss. The tranquility it had offered is etched deep in my mind.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 3 of 19">
+                    <div class="image-frame">
+                        <img src="images/Krabi_2011.JPG" alt="Aug'11: Khao Sok National Park, Thailand">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 03</div>
+                        <div class="caption"><b>[Aug'11: Khao Sok National Park, Thailand]</b> Vacationing in Khao Sok was a blast! Our treehouse buddy was this guy—a snake who clearly ran the local branch of a Computer Vision Corp. Just that it was truly my energy minimizing, and a deformable spline like in vision. On the same treehouse as ours it appeared to hold board meetings and the birds gossip about possibly the futility of human existence!</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 4 of 19">
+                    <div class="image-frame">
+                        <img src="images/syracruse.JPG" alt="Jul'15: Syracruse, Italy">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 04</div>
+                        <div class="caption"><b>[Jul'15: Syracruse, Italy]</b>, Ah, Cruise in Syracuse: A greek city like town with significant historical roots and Syracuse, the birthplace of Archimedes, where you can almost hear him yelling, "Eureka!". Back in the day, I was as skinny as a Greek godess— well, at least in my dreams. Now, fighting an eternal battle with my waistband. Appears battles are perrenial, for eg., battling for GPUs/space in this wild AI world.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 5 of 19">
+                    <div class="image-frame">
+                        <img src="images/deerAtKaziranga.JPG" alt="Apr'12: Kaziranga National Park, India">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 05</div>
+                        <div class="caption"><b>[Apr'12: Kaziranga National Park, India]</b> In the lush landscape of Kaziranga, a solitary deer stood near the placid lake, feeling a bit like the last guest at a party that ended hours ago. As the sun dipped below the horizon, casting a the deers own shadow over the water, the deer sighed dramatically, thinking, “So, this is what they meant by ‘me-time.’”</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 6 of 19">
+                    <div class="image-frame">
+                        <img src="images/FoxAndesMountainRange_chile.JPG" alt="Oct'15: Andes mountain range, Chile, South America">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 06</div>
+                        <div class="caption"><b>[Oct'15: Andes mountain range, Chile, South America]</b> Andes's most elusive runway model is this fox. The Andean fox sports a dense, chic reddish-brown coat and thrives in various environments—unlike us, who demand AC and heating even when the weather is perfectly fine. Who's the real adaptable creature here? Foxes in Chile are like expert ninjas—they’re elusive, often vanishing into thin air. But wave around some food, and suddenly they become as common as WiFi in a coffee shop!</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 7 of 19">
+                    <div class="image-frame">
+                        <img src="images/LadyonaHammock.jpg" alt="Oct'09: Botanical gardens, Singapore">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 07</div>
+                        <div class="caption"><b>[Oct'09: Botanical gardens, Singapore]</b> As you lounge in your royal hammock, with grace and in a state of ultimate relaxation. Here's to a day full of gentle breeze, zero mosquito bites in SG humid weather, and endless hammock-time dreams.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 8 of 19">
+                    <div class="image-frame">
+                        <img src="images/Delhi-Dec-2016.jpg" alt="Dec'16: Pepsi's kids, Delhi">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 08</div>
+                        <div class="caption"><b>[Dec'16: Pepsi's kids, Delhi]</b> So what if the mom died....how can we let these cute puppies die without food. Thanks to god for giving me wisdom to keep them warm and greateful for giving them life. Caltech hoodie put to some use.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 9 of 19">
+                    <div class="image-frame">
+                        <img src="images/goose.jpg" alt="Mar'18:Canada Goose, Santa Rosa, USA">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 09</div>
+                        <div class="caption"><b>[Mar'18:Canada Goose, Santa Rosa, USA]</b> Geese aren't plain interested to pose - bad subjects!! they are</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 10 of 19">
+                    <div class="image-frame">
+                        <img src="images/venice_OCt12.jpg" alt="Venice">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 10</div>
+                        <div class="caption"><b>[Venice]</b> Us, struck by Fernweh</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 11 of 19">
+                    <div class="image-frame">
+                        <img src="images/Sunset_DUbai_2016.jpg" alt="Oct'16, Dubai">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 11</div>
+                        <div class="caption"><b>[Oct'16, Dubai]</b> Deep in thought as the jet and the sunset are engaged in a mesmerizing dance, making me a luckiest passenger on earth.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 12 of 19">
+                    <div class="image-frame">
+                        <img src="images/cork_ireland.jpg" alt="Cork, Ireland'12">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 12</div>
+                        <div class="caption"><b>[Cork, Ireland'12]</b> View behind our home.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 13 of 19">
+                    <div class="image-frame">
+                        <img src="images/PonteVechhio.jpg" alt="Oct'12, Florence Italy">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 13</div>
+                        <div class="caption"><b>[Oct'12, Florence Italy]</b> PonteVechhio, (built 1345) this medieval stone bridge, hosts goldsmiths and jewelers, creating a vibrant atmosphere. Its picturesque views of the Arno.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 14 of 19">
+                    <div class="image-frame">
+                        <img src="images/Frendicoes.jpg" alt="Frendicoes, Delhi">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 14</div>
+                        <div class="caption"><b>[Frendicoes, Delhi]</b> Frendicoes Animal Shelter in Delhi is a haven for rescued animals, offering them safety, care, and a second chance at life. Now shouldn't we be thinking of a more humane society for all living beings.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 15 of 19">
+                    <div class="image-frame">
+                        <img src="images/Korea.jpg" alt="Oct'19, Korea">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 15</div>
+                        <div class="caption"><b>[Oct'19, Korea]</b> Da-Seon (Tea Ceremony). It is one of the meditations to practice of mindfulness and concentration through brewing and drinking tea, Korea</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 16 of 19">
+                    <div class="image-frame">
+                        <img src="images/chao_praya_river_grand_palace.jpg" alt="Oct'11, Thailand">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 16</div>
+                        <div class="caption"><b>[Oct'11, Thailand]</b> The Grand Palace across Chao Praya river, Bangkok</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 17 of 19">
+                    <div class="image-frame">
+                        <img src="images/Ceynote.jpg" alt="Ceynote, Mexico">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 17</div>
+                        <div class="caption"><b>[Ceynote, Mexico]</b> When you lack the courage to plunge into the refreshing waters, but you flaunt on a feed some adventure! So instead, you strategically position yourself at the edge, snapping epic photos that scream “I’m adventurous!” while I'm secretly plotting your escape route back to dry land.</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 18 of 19">
+                    <div class="image-frame">
+                        <img src="images/LombardStreetSFOAshramVisit.jpg" alt="Mar'17: San Francisco">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 18</div>
+                        <div class="caption"><b>[Mar'17: San Francisco]</b> On the way to Vedanta Society of Northern California, SFO, USA</div>
+                    </div>
+                </article>
+                <article class="slide" aria-label="Travel photo 19 of 19">
+                    <div class="image-frame">
+                        <img src="images/Sarita_n_I.jpg" alt="Oct'17: France">
+                    </div>
+                    <div class="caption-panel">
+                        <div class="slide-kicker">Photo story 19</div>
+                        <div class="caption"><b>[Oct'17: France]</b> Sarita and I</div>
+                    </div>
+                </article>
+            </div>
 
-    <!-- 2 -->
-    <div class="slide">
-        <img src="images/Borobudur.jpg">
-        <div class="caption"><b>[Indonesia, Oct'10]</b> Silhouette of Buddha at Borobodur. The image was captured at Sunrise, around 5AM. The Borobodur sunrise tour is something people visiting Indonesia cannot miss. The tranquility it had offered is etched deep in my mind.</div>
-    </div>
+            <div class="controls" aria-label="Slideshow controls">
+                <button class="control-btn" onclick="prevSlide()">❮ Prev</button>
+                <button class="control-btn" onclick="togglePlay()" id="playBtn">▶ Play</button>
+                <button class="control-btn" onclick="nextSlide()">Next ❯</button>
+            </div>
+        </div>
 
-    <!-- 3 -->
-    <div class="slide">
-        <img src="images/Krabi_2011.JPG">
-        <div class="caption"><b>[Aug'11: Khao Sok National Park, Thailand]</b> Vacationing in Khao Sok was a blast! Our treehouse buddy was this guy—a snake who clearly ran the local branch of a Computer Vision Corp. Just that it was truly my energy minimizing, and a deformable spline like in vision. On the same treehouse as ours it appeared to hold board meetings and the birds gossip about possibly the futility of human existence!</div>
-    </div>
+        <aside class="side-panel">
+            <h2>Browse the gallery</h2>
+            <p>Use the thumbnails, arrow keys, or swipe on mobile. The play button starts the slideshow and music.</p>
+            <div class="thumb-grid" id="thumbGrid">
+                    <button class="thumb" onclick="goToSlide(0)" aria-label="Go to photo 1">
+                        <img src="images/Lousiana_gator_Swamp.jpg" alt="Jun'22: New Orleans, USA">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(1)" aria-label="Go to photo 2">
+                        <img src="images/Borobudur.jpg" alt="Indonesia, Oct'10">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(2)" aria-label="Go to photo 3">
+                        <img src="images/Krabi_2011.JPG" alt="Aug'11: Khao Sok National Park, Thailand">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(3)" aria-label="Go to photo 4">
+                        <img src="images/syracruse.JPG" alt="Jul'15: Syracruse, Italy">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(4)" aria-label="Go to photo 5">
+                        <img src="images/deerAtKaziranga.JPG" alt="Apr'12: Kaziranga National Park, India">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(5)" aria-label="Go to photo 6">
+                        <img src="images/FoxAndesMountainRange_chile.JPG" alt="Oct'15: Andes mountain range, Chile, South America">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(6)" aria-label="Go to photo 7">
+                        <img src="images/LadyonaHammock.jpg" alt="Oct'09: Botanical gardens, Singapore">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(7)" aria-label="Go to photo 8">
+                        <img src="images/Delhi-Dec-2016.jpg" alt="Dec'16: Pepsi's kids, Delhi">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(8)" aria-label="Go to photo 9">
+                        <img src="images/goose.jpg" alt="Mar'18:Canada Goose, Santa Rosa, USA">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(9)" aria-label="Go to photo 10">
+                        <img src="images/venice_OCt12.jpg" alt="Venice">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(10)" aria-label="Go to photo 11">
+                        <img src="images/Sunset_DUbai_2016.jpg" alt="Oct'16, Dubai">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(11)" aria-label="Go to photo 12">
+                        <img src="images/cork_ireland.jpg" alt="Cork, Ireland'12">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(12)" aria-label="Go to photo 13">
+                        <img src="images/PonteVechhio.jpg" alt="Oct'12, Florence Italy">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(13)" aria-label="Go to photo 14">
+                        <img src="images/Frendicoes.jpg" alt="Frendicoes, Delhi">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(14)" aria-label="Go to photo 15">
+                        <img src="images/Korea.jpg" alt="Oct'19, Korea">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(15)" aria-label="Go to photo 16">
+                        <img src="images/chao_praya_river_grand_palace.jpg" alt="Oct'11, Thailand">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(16)" aria-label="Go to photo 17">
+                        <img src="images/Ceynote.jpg" alt="Ceynote, Mexico">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(17)" aria-label="Go to photo 18">
+                        <img src="images/LombardStreetSFOAshramVisit.jpg" alt="Mar'17: San Francisco">
+                    </button>
+                    <button class="thumb" onclick="goToSlide(18)" aria-label="Go to photo 19">
+                        <img src="images/Sarita_n_I.jpg" alt="Oct'17: France">
+                    </button>
+            </div>
+        </aside>
+    </section>
 
-    <!-- 4 -->
-    <div class="slide">
-        <img src="images/syracruse.JPG">
-        <div class="caption"><b>[Jul'15: Syracruse, Italy]</b>, Ah, Cruise in Syracuse: A greek city like town with significant historical roots and Syracuse, the birthplace of Archimedes, where you can almost hear him yelling, "Eureka!". Back in the day, I was as skinny as a Greek godess— well, at least in my dreams. Now, fighting an eternal battle with my waistband. Appears battles are perrenial, for eg., battling for GPUs/space in this wild AI world.</div>
-    </div>
+    <p class="note">
+        Some captions are deliberately light-hearted travel notes. They preserve the personal tone of the original page while improving readability and visual consistency.
+    </p>
 
-    <!-- 5 -->
-    <div class="slide">
-        <img src="images/deerAtKaziranga.JPG">
-        <div class="caption"><b>[Apr'12: Kaziranga National Park, India]</b> In the lush landscape of Kaziranga, a solitary deer stood near the placid lake, feeling a bit like the last guest at a party that ended hours ago. As the sun dipped below the horizon, casting a the deers own shadow over the water, the deer sighed dramatically, thinking, “So, this is what they meant by ‘me-time.’”</div>
-    </div>
-
-    <!-- 6 -->
-    <div class="slide">
-        <img src="images/FoxAndesMountainRange_chile.JPG">
-        <div class="caption"><b>[Oct'15: Andes mountain range, Chile, South America]</b> Andes's most elusive runway model is this fox. The Andean fox sports a dense, chic reddish-brown coat and thrives in various environments—unlike us, who demand AC and heating even when the weather is perfectly fine. Who's the real adaptable creature here? Foxes in Chile are like expert ninjas—they’re elusive, often vanishing into thin air. But wave around some food, and suddenly they become as common as WiFi in a coffee shop!</div>
-    </div>
-
-    <!-- 7 -->
-    <div class="slide">
-        <img src="images/LadyonaHammock.jpg">
-        <div class="caption"><b>[Oct'09: Botanical gardens, Singapore]</b> As you lounge in your royal hammock, with grace and in a state of ultimate relaxation. Here's to a day full of gentle breeze, zero mosquito bites in SG humid weather, and endless hammock-time dreams.</div>
-    </div>
-
-    <!-- 8 -->
-    <div class="slide">
-        <img src="images/Delhi-Dec-2016.jpg">
-        <div class="caption"><b>[Dec'16: Pepsi's kids, Delhi]</b> So what if the mom died....how can we let these cute puppies die without food. Thanks to god for giving me wisdom to keep them warm and greateful for giving them life. Caltech hoodie put to some use.</div>
-    </div>
-
-    <!-- 9 -->
-    <div class="slide">
-        <img src="images/goose.jpg">
-        <div class="caption"><b>[Mar'18:Canada Goose, Santa Rosa, USA]</b> Geese aren't plain interested to pose - bad subjects!! they are</div>
-    </div>
-
-    <!-- 10 -->
-    <div class="slide">
-        <img src="images/venice_OCt12.jpg">
-        <div class="caption"><b>[Venice]</b> Us, struck by Fernweh</div>
-    </div>
-
-    <!-- 11 -->
-    <div class="slide">
-        <img src="images/Sunset_DUbai_2016.jpg">
-        <div class="caption"><b>[Oct'16, Dubai]</b> Deep in thought as the jet and the sunset are engaged in a mesmerizing dance, making me a luckiest passenger on earth.</div>
-    </div>
-
-    <!-- 12 -->
-    <div class="slide">
-        <img src="images/cork_ireland.jpg">
-        <div class="caption"><b>[Cork, Ireland'12]</b> View behind our home.</div>
-    </div>
-
-    <!-- 13 -->
-    <div class="slide">
-        <img src="images/PonteVechhio.jpg">
-        <div class="caption"><b>[Oct'12, Florence Italy]</b> PonteVechhio, (built 1345) this medieval stone bridge, hosts goldsmiths and jewelers, creating a vibrant atmosphere. Its picturesque views of the Arno.</div>
-    </div>
-
-    <!-- 14 -->
-    <div class="slide">
-        <img src="images/Frendicoes.jpg">
-        <div class="caption"><b>[Frendicoes, Delhi]</b> Frendicoes Animal Shelter in Delhi is a haven for rescued animals, offering them safety, care, and a second chance at life. Now shouldn't we be thinking of a more humane society for all living beings.</div>
-    </div>
-
-    <!-- 15 -->
-    <div class="slide">
-        <img src="images/Korea.jpg">
-        <div class="caption"><b>[Oct'19, Korea]</b> Da-Seon (Tea Ceremony). It is one of the meditations to practice of mindfulness and concentration through brewing and drinking tea, Korea</div>
-    </div>
-
-    <!-- 16 -->
-    <div class="slide">
-        <img src="images/chao_praya_river_grand_palace.jpg">
-        <div class="caption"><b>[Oct'11, Thailand]</b> The Grand Palace across Chao Praya river, Bangkok</div>
-    </div>
-
-    <!-- 17 -->
-    <div class="slide">
-        <img src="images/Ceynote.jpg">
-        <div class="caption"><b>[Ceynote, Mexico]</b> When you lack the courage to plunge into the refreshing waters, but you flaunt on a feed some adventure! So instead, you strategically position yourself at the edge, snapping epic photos that scream “I’m adventurous!” while I'm secretly plotting your escape route back to dry land.</div>
-    </div>
-
-    <!-- 18 -->
-    <div class="slide">
-        <img src="images/LombardStreetSFOAshramVisit.jpg">
-        <div class="caption"><b>[Mar'17: San Francisco]</b> On the way to Vedanta Society of Northern California, SFO, USA</div>
-    </div>
-
-    <!-- 19 -->
-    <div class="slide">
-        <img src="images/Sarita_n_I.jpg">
-        <div class="caption"><b>[Oct'17: France]</b> Sarita and I</div>
-    </div>
-
-</div>
-
-<div class="controls">
-    <button onclick="prevSlide()">❮ Prev</button>
-    <button onclick="togglePlay()" id="playBtn">▶ Play</button>
-    <button onclick="nextSlide()">Next ❯</button>
-</div>
+    <footer>
+        Built as a personal travel gallery · <a href="index.html">Ramya Hebbalaguppe</a>
+    </footer>
+</main>
 
 <audio id="bgMusic" loop>
     <source src="music/happy_travel_music.mp3" type="audio/mpeg">
@@ -220,10 +664,13 @@
     const counter = document.getElementById("counter");
     const music = document.getElementById("bgMusic");
     const playBtn = document.getElementById("playBtn");
+    const thumbs = document.querySelectorAll(".thumb");
 
     function showSlide(n) {
         for (let slide of slides) slide.style.display = "none";
+        for (let thumb of thumbs) thumb.classList.remove("active");
         slides[n].style.display = "block";
+        if (thumbs[n]) thumbs[n].classList.add("active");
         counter.innerText = (n + 1) + " / " + slides.length;
     }
 
@@ -237,10 +684,15 @@
         showSlide(slideIndex);
     }
 
+    function goToSlide(n) {
+        slideIndex = n;
+        showSlide(slideIndex);
+    }
+
     function togglePlay() {
         if (!isPlaying) {
             timer = setInterval(nextSlide, 5000);
-            music.play();
+            music.play().catch(() => { /* autoplay may be blocked until user interacts */ });
             playBtn.innerText = "⏸ Pause";
         } else {
             clearInterval(timer);
@@ -250,7 +702,6 @@
         isPlaying = !isPlaying;
     }
 
-    // Swipe support
     let startX = 0;
     const slideshow = document.getElementById("slideshow");
 
@@ -259,6 +710,15 @@
         let endX = e.changedTouches[0].clientX;
         if (startX - endX > 50) nextSlide();
         if (endX - startX > 50) prevSlide();
+    });
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight") nextSlide();
+        if (e.key === "ArrowLeft") prevSlide();
+        if (e.key === " ") {
+            e.preventDefault();
+            togglePlay();
+        }
     });
 
     showSlide(slideIndex);
