@@ -1,501 +1,172 @@
-<!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <title>Ramya Hebbalaguppe</title>
-  
-  <meta name="author" content="Ramya Hebbalaguppe">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+  <meta name="author" content="Ramya Hebbalaguppe">
+  <meta name="description" content="Ramya Hebbalaguppe — reliable machine learning, confidence calibration, out-of-distribution detection, vision-language models, and generative AI.">
+  <title>Ramya Hebbalaguppe</title>
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <style>
+    :root { --ink:#20303a; --muted:#5f7079; --paper:#fffdfb; --surface:#fff; --blue-50:#edf6fb; --blue-100:#d7eaf5; --blue-300:#8fb8d3; --blue-600:#3b789a; --sage-50:#f0f7f1; --sage-100:#dceee0; --sage-600:#4f8460; --peach-50:#fff2ec; --peach-100:#ffe0d2; --lavender-50:#f5f1fb; --lavender-100:#e8def7; --rose-50:#fff1f5; --border:#dfe8ed; --shadow:0 16px 44px rgba(45,72,89,.08); --radius:22px; }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:radial-gradient(circle at top left, rgba(215,234,245,.82), transparent 34rem), radial-gradient(circle at top right, rgba(232,222,247,.75), transparent 30rem), linear-gradient(180deg,#fbfdff 0%,var(--paper) 44%,#fffaf5 100%); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:1.62; }
+    a { color:var(--blue-600); text-decoration:none; } a:hover { color:#245b77; text-decoration:underline; }
+    .page { width:min(1060px, calc(100% - 36px)); margin:0 auto; padding:30px 0 46px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:22px; color:var(--muted); font-size:.93rem; } .nav-links { display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-end; }
+    .nav-links a { padding:7px 12px; border:1px solid rgba(143,184,211,.45); border-radius:999px; background:rgba(255,255,255,.72); color:var(--ink); } .nav-links a:hover { background:var(--blue-50); text-decoration:none; transform:translateY(-1px); }
+    .hero { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:34px; align-items:center; padding:34px; border:1px solid rgba(143,184,211,.35); border-radius:30px; background:rgba(255,255,255,.84); box-shadow:var(--shadow); backdrop-filter:blur(10px); }
+    .eyebrow { display:inline-block; margin-bottom:10px; padding:5px 11px; border:1px solid var(--blue-100); border-radius:999px; background:var(--blue-50); color:#315a70; font-size:.86rem; font-weight:700; }
+    h1 { margin:0; font-size:clamp(2.15rem,4.8vw,4.1rem); line-height:1.02; letter-spacing:-.045em; color:#182832; font-weight:850; } .tagline { margin:16px 0 18px; color:#40525d; font-size:clamp(1.05rem,2.2vw,1.25rem); line-height:1.5; max-width:680px; }
+    .bio p { margin:0 0 14px; } .hero-photo-wrap { position:relative; justify-self:center; } .hero-photo-wrap::before { content:""; position:absolute; inset:18px -14px -14px 18px; border-radius:28px; background:linear-gradient(135deg,var(--peach-100),var(--lavender-100)); z-index:0; }
+    .hero-photo { position:relative; z-index:1; display:block; width:280px; max-width:100%; border-radius:26px; border:8px solid rgba(255,255,255,.9); box-shadow:0 18px 44px rgba(45,72,89,.16); object-fit:cover; }
+    .button-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; } .button { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); background:#fff; color:#20303a; font-weight:650; font-size:.93rem; } .button.primary { border-color:#b7d8e8; background:linear-gradient(135deg,var(--blue-50),#fff); color:#245b77; } .button:hover { text-decoration:none; transform:translateY(-1px); box-shadow:0 8px 20px rgba(45,72,89,.08); }
+    section { margin-top:28px; padding:28px; border:1px solid rgba(223,232,237,.95); border-radius:var(--radius); background:rgba(255,255,255,.88); box-shadow:0 12px 34px rgba(45,72,89,.045); } .section-header { display:flex; justify-content:space-between; gap:18px; align-items:flex-end; margin-bottom:18px; } h2 { margin:0; font-size:clamp(1.45rem,3vw,2rem); letter-spacing:-.025em; } .section-kicker { margin:6px 0 0; color:var(--muted); }
+    .theme-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; } .theme-card { padding:18px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg,#fff,var(--blue-50)); } .theme-card:nth-child(2){background:linear-gradient(180deg,#fff,var(--sage-50));} .theme-card:nth-child(3){background:linear-gradient(180deg,#fff,var(--lavender-50));} .theme-card:nth-child(4){background:linear-gradient(180deg,#fff,var(--peach-50));} .theme-card h3 { margin:8px 0 6px; font-size:1.02rem; } .theme-card p { margin:0; color:var(--muted); font-size:.95rem; } .theme-icon { width:34px; height:34px; border-radius:12px; display:grid; place-items:center; background:#fff; border:1px solid var(--border); }
+    .news-list { list-style:none; padding:0; margin:0; display:grid; gap:10px; } .news-list li { display:grid; grid-template-columns:72px 1fr; gap:12px; padding:12px 14px; border:1px solid var(--border); border-radius:14px; background:#fff; } .year { font-weight:800; color:var(--blue-600); }
+    .paper-list { display:grid; gap:16px; } .paper-card { display:grid; grid-template-columns:180px 1fr; gap:20px; padding:18px; border:1px solid var(--border); border-radius:20px; background:rgba(255,255,255,.94); } .paper-thumb { height:142px; border-radius:16px; background:linear-gradient(135deg,var(--blue-50),var(--lavender-50)); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; padding:10px; } .paper-thumb img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block; } .paper-meta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:.9rem; } .badge { display:inline-flex; align-items:center; border-radius:999px; padding:4px 9px; background:var(--sage-50); border:1px solid var(--sage-100); color:var(--sage-600); font-weight:750; } .paper-card h3 { margin:7px 0 5px; font-size:1.17rem; line-height:1.34; } .paper-card p { margin:8px 0 0; color:#40525d; } .authors { color:#62727a!important; } .author-me { color:#152832; font-weight:850; } .paper-links a { font-weight:700; }
+    .people-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; } .people-card { padding:18px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(180deg,#fff,var(--peach-50)); } .people-card h3 { margin:0 0 10px; } .people-card ol { margin:0; padding-left:20px; } .people-card li { margin:7px 0; } .people-card span { color:var(--muted); }
+    footer { margin-top:26px; text-align:center; color:var(--muted); font-size:.92rem; }
+    @media(max-width:850px) { .hero{grid-template-columns:1fr; padding:24px;} .theme-grid{grid-template-columns:1fr 1fr;} .paper-card{grid-template-columns:1fr;} .paper-thumb{height:170px;} .people-grid{grid-template-columns:1fr;} .top-nav{align-items:flex-start; flex-direction:column;} } @media(max-width:560px) { .page{width:min(100% - 22px,1060px); padding-top:18px;} section,.hero{padding:20px; border-radius:20px;} .theme-grid{grid-template-columns:1fr;} .news-list li{grid-template-columns:1fr; gap:3px;} }
+  </style>
 </head>
-
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Ramya Hebbalaguppe</name>
-              </p>
-I am a researcher specializing in visual computing and machine learning. My doctoral research, supervised by <a href="https://www.cse.iitd.ac.in/~chetan/">Prof. Chetan Arora</a> at IIT Delhi, focused on proposing novel methods to enhance trust and reliability in deep neural networks (DNNs) based classifiers. During my doctoral studies, I developed techniques for out-of-distribution detection, uncertainty quantification, and the refinement of DNN models backed by theoretical insights.
-
-                <p>  Before pursuing my doctoral research, I had the privilege of working with <a href="https://sites.google.com/site/ramakrishnakakarala/research?authuser=0">Prof. Ramakrishna Kakarala</a> at Nanyang Technological University on High Dynamic Range (HDR) Imaging algorithms. This work formed a part of the image processing pipeline aimed at smartphone cameras. Our research was recognized with the Best Student Paper award at the 2012 SPIE conference in Burlingame, California. I completed my Master’s degree at the School of Electronic Engineering and Computing at Dublin City University in 2014, under the guidance of <a href="https://www.insight-centre.org/our-team/prof-noel-oconnor/">Prof. Noel O'Connor</a> and <a href="https://www.dcu.ie/insight/people/alan-smeaton">Prof. Alan Smeaton</a>. My focus during this time was on reducing false alarms in surveillance camera networks, with a portion of this research being licensed to Netwatch Systems and the team received Invent award for the project.
-              <p>
-                Currently, I am employed as a Senior Scientist at TCS Research Labs, within the Deep Learning and Artificial Intelligence Group (DLAI) located at the Research and Development Park, IIT Delhi, India. At TCS, my work spans various areas, including efficient inference of DNNs through model compression, trustworthy ML, continual learning, and, more importantly, the development of algorithms for creative and immersive content generation, such as images, videos, and 3D/4D data</p>
-              <p>
-                Outside work, I enjoy painting, traveling, cooking and baking, composting, planting tree saplings, and music.</a>
-              </p>
-              
-              <p style="text-align:center">>
-                <a href="mailto:ramya.murthy@gmail.com">Email</a> &nbsp/&nbsp
-                <a href="https://scholar.google.com/citations?user=IJjnjZIAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
-                <a href="https://twitter.com/RHebbalaguppe">Twitter</a> &nbsp/&nbsp
-                <a href="https://github.com/rhebbalaguppe">Github</a> &nbsp/&nbsp
-                <a href="travel.html">Travel Map &amp; Photos</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/playa.png"><img style="width:120%;max-width:120%" alt="profile photo" src="images/playa.png" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Research</heading>
-              <p>
-                Representative papers spanning the following themes reliable machine learning (out-of-distribution detection, uncertainty quantification, continual learning), 3D/4D/2D computer vision are <span class="highlight">highlighted</span>.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-				
-      
-
-          <!-- Add new papers here -->
-
-
-			
-          
-            <td style="padding:20px;width:25%;vertical-align:middle">
-                    <img src='VQA_calib.png' width="225" height ="175">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a>
-                <papertitle> Refine and Align: Confidence Calibration Through Multi-Agent Interaction in VQA
-
-</papertitle>
-              </a>
-              <br>
-			  <a> Ayush Pandey </a>,
-              <a> Jai Bardhan </a>,
-              <a> Ishita Jain </a>,
-              <strong>Ramya Hebbalaguppe</strong>,
-			  <a>Rohan Raju Dhanakshirur </a>,
-              <a>Lovekesh Vig </a>,
-              <br>
-              <em>AAAI 2026 (Alignment Track)  </em> &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <!-- <a href="https://arxiv.org/abs/2403.00437">[paper]</a> -->
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              Calibration in VQA measures how well a model’s confidence reflects correctness, which is critical for autonomous, high-stakes applications where models are often overconfident. We propose AlignVQA, a debate-based multi-agent framework where specialized VLMs generate answers and generalist agents critique and aggregate them to produce better-calibrated confidence estimates. Additionally, our AlignCal loss improves calibration during training, leading to significantly reduced calibration errors across VQA benchmarks.
-              </p>
-            </td>
-          </tr>
-
-                    <!-- LOMOE  -->
-
-          
-            <td style="padding:20px;width:25%;vertical-align:middle">
-                    <img src='images/StyleCL.png' width="225" height ="175">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a>
-                <papertitle>Lifelong Learning in StyleGAN through Latent Subspaces
-</papertitle>
-              </a>
-              <br>
-              <a href="https://dblp.org/pid/255/5908.html">Adarsh K</a>,
-              <a> Anmol Garg </a>,
-              <strong>Ramya Hebbalaguppe</strong>,
-              <a href="https://eecs.iisc.ac.in/people/prathosh-a-p/">Prathosh AP</a>,
-              <br>
-              <em>Transactions on Machine Learning Research </em>, 2024 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <!-- <a href="https://arxiv.org/abs/2403.00437">[paper]</a> -->
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              StyleGAN is a powerful generative model but suffers from catastrophic forgetting when trained continuously on new data distributions. We propose StyleCL, which enables lifelong learning by learning task-specific latent subspace dictionaries and lightweight feature adaptors, while reusing prior knowledge when beneficial. This approach avoids forgetting, improves generation quality across datasets, and requires significantly fewer additional parameters per task.
-              </p>
-            </td>
-          </tr>
-
-
-          <!-- KD(C)  -->
-
-          
-            <td style="padding:20px;width:25%;vertical-align:middle">
-                    <img src='images/Teaser_accv.png' width="200" height ="150">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a>
-                <papertitle>Calibration Transfer via Knowledge Distillation
-</papertitle>
-              </a>
-              <br>
-              <strong>Ramya Hebbalaguppe</strong>,
-              <a href="https://www.sc.iitb.ac.in/~mayank/">Mayank Baranwal</a>,
-              <a> Kartik Anand</a>,
-              <a href="https://www.cse.iitd.ac.in/~chetan/">Chetan Arora</a>,
-              <br>
-              <em>ACCV </em>, 2024 &nbsp -- <font color="red"><strong>[Oral Presentation] (top 5.6 &#37)</strong></font>
-              <br>
-              <a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Hebbalaguppe_Calibration_Transfer_via_Knowledge_Distillation_ACCV_2024_paper.pdf#">[paper]</a>
-              <a href="https://openaccess.thecvf.com/content/ACCV2024/supplemental/Hebbalaguppe_Calibration_Transfer_via_ACCV_2024_supplemental.pdf#">[Suppl. Material (proofs)]</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
- Knowledge Distillation for Calibration (KD(C)) extends distillation beyond accuracy transfer to produce lightweight, well-calibrated models. We show—both theoretically and empirically—that calibration can be improved without sacrificing accuracy. In some cases, KD(C) even surpasses standard training, achieving both better calibration and higher accuracy.
-              </p>
-            </td>
-          </tr>
-
-
-          <!-- LOMOE  -->
-
-          
-            <td style="padding:20px;width:25%;vertical-align:middle">
-                    <img src='images/LOMOE_teaser_2.png' width="200" height ="150">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a>
-                <papertitle>LoMOE: Localized Multi-Object Editing via Multi-Diffusion
-</papertitle>
-              </a>
-              <br>
-              <a href="https://scholar.google.co.in/citations?user=jxW0icUAAAAJ&hl=en/">Goirik Chakrabarty</a>,
-              <a href="https://scholar.google.com/citations?user=VN9KgoUAAAAJ&hl=en/">Aditya Chandrasekar</a>,
-              <strong>Ramya Hebbalaguppe</strong>,
-              <a href="https://eecs.iisc.ac.in/people/prathosh-a-p/">Prathosh AP</a>,
-              <br>
-              <em>ACM International Conference on Multimedia </em>, 2024 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <a href="https://arxiv.org/abs/2403.00437">[paper]</a>
-              <a href="https://lomoe-tcs.github.io#">[project page]</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              Diffusion models enable high-quality prompt-based image editing but struggle with precise, fine-grained changes using text alone. We propose a zero-shot multi-diffusion framework for localized multi-object editing, allowing additions, replacements, and edits in a single pass. Our method, along with the LoMOE-Bench dataset, outperforms prior approaches in both editing quality and speed.
-              </p>
-            </td>
-          </tr>
-      
-          <!--\ ReMOVE  -->
-
-<!-- ReMOVE  -->
-
-          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
-          <!-- <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">-->  <!-- For oral papers uncomment this line -->
-            <td style="padding:20px;width:25%;vertical-align:middle">
-                    <img src='images/ReMOVE_Teaser.png' width="200" height ="130">
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a>
-                <papertitle>ReMOVE: A Reference-free Metric for Object Erasure</papertitle>
-              </a>
-              <br>
-              <a href="https://scholar.google.com/citations?user=VN9KgoUAAAAJ&hl=en/">Aditya Chandrasekar</a>,
-              <a href="https://scholar.google.co.in/citations?user=jxW0icUAAAAJ&hl=en/">Goirik Chakrabarty</a>,
-              <a href="https://in.linkedin.com/in/jai-bardhan/">Jai Bardhan</a>,
-              <strong>Ramya Hebbalaguppe</strong>,
-              <a href="https://eecs.iisc.ac.in/people/prathosh-a-p/">Prathosh AP</a>,
-              <br>
-              <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPRW) The First Workshop on the Evaluation of Generative Foundation Models</em>, 2024 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <a href="https://github.com/chandrasekaraditya/ReMOVE">project page</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              We introduce ReMOVE, a novel reference-free metric for assessing object erasure efficacy in diffusion-based image editing models post-generation. Unlike existing measures such as LPIPS and CLIPScore, ReMOVE addresses the challenge of evaluating inpainting without a reference image, common in practical scenarios. ReMOVE  effectively distinguishes between object removal and replacement, a key issue in diffusion models due to stochastic nature of image generation. 
-              </p>
-            </td>
-          </tr>
-      
-          <!--\ ReMOVE  -->
-
-
-          <!-- Transfer4D  -->
-
-          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
-          <!-- <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">-->  <!-- For oral papers uncomment this line -->
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='transfer4D_image'><video  width=100%  muted autoplay loop> <!-- Note:- Make sure to change `transfer4D_image` for the new paper -->
-                <source src="images/Transfer4D-CVPR-cropped.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/Transfer4D-CVPR-cropped.jpeg' width="100" height ="200">
-              </div>
-              <script type="text/javascript">
-                function dreamfusion_start() {
-                  document.getElementById('transfer4D_image').style.opacity = "1"; // Note:- Make sure to change `transfer4D_image` for the new paper
-                }
-
-                function dreamfusion_stop() {
-                  document.getElementById('transfer4D_image').style.opacity = "0"; // Note:- Make sure to change `transfer4D_image` for the new paper
-                }
-                dreamfusion_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://dreamfusion3d.github.io/">
-                <papertitle>Transfer4D: A framework for frugal motion capture and deformation transfer</papertitle>
-              </a>
-              <br>
-              <a href="https://shubhmaheshwari.github.io/website/">Shubh Maheshwari</a>,
-              <a href="https://www.cse.iitd.ac.in/~narain/">Rahul Narain</a>,
-              <strong>Ramya Hebbalaguppe</strong>,
-              <br>
-              <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2023 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <a href="https://transfer4d.github.io/#">project page</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              Animating a virtual character based on a real performance of an actor is a challenging task that currently requires expensive motion capture setups and additional effort by expert animators, rendering it accessible only to large production houses. The goal of our work is to democratize this task by developing a frugal alternative termed Transfer4D that uses only commodity depth sensors and further reduces animators' effort by automating the rigging and animation transfer process. Our approach can transfer motion from an incomplete, single-view depth video to a semantically similar target mesh, unlike prior works that make a stricter assumption on the source to be noise-free and watertight.
-              </p>
-            </td>
-          </tr>
-		  
-          <!--\ Transfer4D  -->
-
-
-          <!-- Calibration on data-diet  -->
-
-          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
-           <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">
-              <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <img src='images/data_diet.png' width="160">
-              </div>
-              
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html">
-                <papertitle>Calibrating Deep Neural Networks Using Explicit Regularisation and Dynamic Data Pruning</papertitle>
-              </a>
-              <br>
-              <a href="https://hades-rp2010.github.io/">Rishabh Patra*</a>,
-              <strong>Ramya Hebbalaguppe*</strong>,
-              <a href="https://tirtharajdash.github.io/">Tirtharaj Dash</a>,
-              <a href="https://scholar.google.com/citations?hl=en&user=f70Rc2wAAAAJ">Gautam Shroff</a>,
-              <a href="https://scholar.google.com/citations?user=M5MIeROF8JYC&hl=en">Lovekesh Vig</a>,
-              <br>
-              <em>IEEE/CVF Winter Conference on Applications of Computer Vision</em>, 2023  &nbsp  -- <font color="red"><strong>[Spotlight Presentation] (top 10&#37)</strong></font> 
-              <br>
-              <a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html/#">project page</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              We demonstrate state-of-the-art Deep Neural Network calibration performance via proposing a differentiable loss term
-that can be used effectively in gradient descent optimisation and dynamic data pruning strategy not only enhances legitimate
-high confidence samples to enhance trust in DNN classifiers but also reduce the training time for calibration.
-              </p>
-            </td>
-          </tr>
-      
-<!-- CnC -->
-
-          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
-           <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">
-              <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <img src='images/CnC.png' width="160">
-              </div>
-              
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://github.com/cnc-ood/">
-                <papertitle>A Novel Data Augmentation Technique for Out-of-Distribution Sample Detection using Compounded Corruptions</papertitle>
-              </a>
-              <br>
-              <strong>Ramya Hebbalaguppe</strong>,
-              <a href="https://soumya1612-rasha.github.io/Soumya/">Soumya Suvra Ghosal</a>,
-              <a href="https://in.linkedin.com/in/jatin-prakash-6874b91a4">Jatin Prakash</a>,
-              <a href="https://sites.google.com/view/harshad/home">Harshad Khadilkar</a>,
-              <a href="https://www.cse.iitd.ac.in/~chetan/">Chetan Arora</a>,
-              
-              <br>
-              <em>European Conference on Machine Learning </em>, 2022 &nbsp  <!-- <font color="red"><strong>(Oral Presentation)</strong></font> -->
-              <br>
-              <a href="https://github.com/cnc-ood/#">project page</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              We propose a novel Compounded Corruption(CnC) technique for the Out-of-Distribution data augmentation. One of the major advantages of CnC is that it does not require any hold-out data apart from the training set. Our extensive comparison with 20 methods from the major conferences in last 4 years show that a model trained using CnC based data augmentation, significantly outperforms SOTA, both in terms of OOD detection accuracy as well as inference time.
-              </p>
-            </td>
-          </tr>
-      
-          <!--\ Transfer4D  -->
-
-
-                    <!-- MDCA -->
-
-          <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()">
-           <tr onmouseout="dreamfusion_stop()" onmouseover="dreamfusion_start()" bgcolor="#ffffd0">
-              <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <img src='images/stitch_in_time.png' width="160">
-              </div>
-              
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://github.com/mdca-loss/MDCA-Calibration">
-                <papertitle> A stitch in time saves nine: A train-time regularizing loss for improved neural network calibration </papertitle>
-              </a>
-              <br>
-              <strong>Ramya Hebbalaguppe*</strong>,
-              <a href="https://in.linkedin.com/in/jatin-prakash-6874b91a4">Jatin Prakash</a>,
-              <strong>Neelabh Madan*</strong>,
-              <a href="https://www.cse.iitd.ac.in/~chetan/">Chetan Arora</a>,
-              <br>
-              <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </em>, 2022  &nbsp  -- <font color="red"><strong>[ORAL Presentation] (top 4&#37)</strong></font> 
-              <br>
-              <a href="https://github.com/mdca-loss/MDCA-Calibration/#">project page</a>
-              <!-- / <a href="">arXiv</a> -->
-              <!-- / <a href="">Additional</a> -->
-              <p></p>
-              <p>
-              We propose a novel auxiliary loss function: Multi-class Difference in Confidence and Accuracy (MDCA) for Deep Neural Network calibration. The loss can be combined with any application specific classification losses for image, NLP, Speech domains. We also demonstrate the utility of the loss in semantic segmentation tasks.
-              </p>
-            </td>
-          </tr>
-      
-          <!--\ MDCA  -->
-
-
-        </tbody></table>
-
-        <section width="100%" align="left" border="0" cellspacing="0" cellpadding="20">
-          <h2>Current Research Team, Research and Innovation Park, IIT Delhi</h2>
-          <!-- <ul style="list-style-type: none;">   -->
-          <ol>
-            <!--<li><a style="text-decoration: none;" href="https://www.linkedin.com/in/tamoghno-kandar/?originalSubdomain=in"> Tamoghno Kandar (IIT Bombay) <strong>Topic:</strong>  Enhancing Trustworthiness in Foundational Models  </a></li> -->
-            <li><a style="text-decoration: none;" href="https://www.linkedin.com/in/ayush-pandey-85810a202/"> Ayush Pandey <strong>Topic:</strong>  Calibration in Agentic AI and LLMs </a></li>
-        </ol>
-		<ol>
-		Interns(Summer'25) : Arman Fatima (IIT Dharwad), Ishita Jain (GaTech), Ayush Pandey (ISER Bhopal), Khuushi Maheshwari (MIT), and Nishant Singh (IIIT Delhi)
-		</ol>
-        </section>
-
-
-        <section width="100%" align="left" border="0" cellspacing="0" cellpadding="20">
-          <h2> Alumni </h2>
-          <h3> (The list of researchers include full-time, pre-doctoral fellows, and research interns.)</h3>
-          <ol>     
-	    <li><a style="text-decoration: none;" href="https://srihegde.github.io/"> Srinidhi Hegde &#8594 Doctoral Student at Purdue University (Prof. Sotiris Nousias
-
-)</a></li>
-			  <li><a style="text-decoration: none;"https://researchweb.iiit.ac.in/~jai.bardhan/"> Jai Bardhan (IIIT Hyderabad) &#8594 Researcher at the Czech Technical University in Prague (With Dr. Josef Sivic)
-			<li><a style="text-decoration: none;"href="https://app.bsky.cz/profile/adarshk22.bsky.social"> Adarsh Kappiyath &#8594 Doctoral student at the University of Surrey, UK (With Dr. Lu Yin and Dr. Xiatian Zhu.)
-            <li><a style="text-decoration: none;"href="https://pranaygupta36.github.io/"> Pranay Gupta &#8594 Doctoral student at CMU (With Prof. Henny Admoni) </a></li>
-            <li><a style="text-decoration: none;" > Meghal Dani &#8594 Doctoral student at IMPRS-IS, Max Planck School (With Prof. Zenep Akata and Prof. Bernhard Schölkopf) </a></li>
-            <li><a style="text-decoration: none;"href="https://surabhisnath.github.io"> Surabhi Nath &#8594 Doctoral student at the Max Planck School of Cognition and the MPI for Biological Cybernetics (With Prof. Peter Dayan) </a></li>   
-            <li><a style="text-decoration: none;"href="https://goirik-chakrabarty.github.io/">  Goirik Chakrabarty &#8594 Doctoral student, University Göttingen (With Prof. Fabian Sinz) </a></li>
-            <li><a style="text-decoration: none;" href="https://in.linkedin.com/in/jatin-prakash-6874b91a4"> Jatin Prakash &#8594 Doctoral student at New York University (With Rajesh Ranganath)</a></li>
-            <li><a style="text-decoration: none;" > Neelabh Madan &#8594 Doctoral student at New York University</a></li>
-            <li><a style="text-decoration: none;" href="https://gaurav16gupta.github.io/"> Gaurav Gupta &#8594 Doctoral student at Rice University</a></li>
-            <li><a style="text-decoration: none;" href="https://research.manchester.ac.uk/en/persons/apoorv.khattar-postgrad"> Apoorv Khattar &#8594 Doctoral student at University of Manchester, UK</a></li>
-            <li><a style="text-decoration: none;" > Neel Rakholia &#8594 Masters Student at Stanford</a></li>
-            <li><a style="text-decoration: none;" href="https://sharanry.github.io/">  Sharan Yalburgi &#8594 Visiting researcher at MIT proabilistic ML project</a></li>
-            <li><a style="text-decoration: none;" href="https://shubhmaheshwari.github.io/"> Shubh Maheshwari &#8594 Graduate student at UCSD</a></li>
-
-            
-            <li><a style="text-decoration: none;" > Jitender Maurya &#8594 Researcher, Toshiba</a></li>
-            <li><a style="text-decoration: none;" > Archie Gupta &#8594 SDE, Microsoft</a></li>
-            <li><a style="text-decoration: none;" > Varun Jain &#8594 Masters student at CMU &#8594 Microsoft Fellow</a></li>
-            <li><a style="text-decoration: none;" href="https://www.linkedin.com/in/addityapopli/?originalSubdomain=in"> Additya Popli &#8594 SDE at Google</a></li>
-            <li><a style="text-decoration: none;" > Kshitijz Jain &#8594 Grad student at IITD </a></li>
-            <li><a style="text-decoration: none;" >  Aravind Udupa &#8594 Grad student at IITD </a></li>
-            
-            
-            <li><a style="text-decoration: none;" > Soumya Suvra Ghosal &#8594 Masters Student at University of Wisconsin</a></li>
-            <li><a style="text-decoration: none;" > Gaurav Garg &#8594  Accenture</a></li>
-            
-            <li><a style="text-decoration: none;" > Ramakrishna Perla &#8594 TTEC Digital</a></li>
-
-          </ol>
-        </section>
-
-
-          <section width="100%" align="left" border="0" cellspacing="0" cellpadding="20">
-          <h2>Academia: Thesis supervision</h2>
-          <ol>
-            <li><a style="text-decoration: none;" > Aditya C (IISc, Bangalore) - co-supervisor for M. Tech Thesis <strong>Topic:</strong> Metrics for image editing (Best Thesis Award) </a></li> 
-            <li><a style="text-decoration: none;" href="https://www.linkedin.com/in/shreyashmohatta/"> Shreyash Mohatta (BITS, Goa) - supervised M.Tech thesis on Egocentric Realtime Gesture Recognition with Dr. Ashwin Srinivasan &#8594 Masters student at NCSU</a></li>
-            <li><a style="text-decoration: none;" > Rishabh Patra  (BITS, Goa)- supervised B.Tech thesis on uncertainty calibration with Dr. Tirtharaj Dash &#8594 SDE Amazon </a></li>
-            <li><a style="text-decoration: none;" href="https://sites.google.com/view/ashwinvaswani"> Ashwin Vaswani (BITS, Goa) - supervised BTP on Data-free Iterative Knowledge Distillation with Prof. Ashwin Srinivasan &#8594 Google Research &#8594 Masters student at CMU</a></li>
-            <li><a style="text-decoration: none;" href="https://scholar.google.com/citations?user=ZdTC1joAAAAJ&hl=en"> Het Shah
- (BITS, Goa) - supervised BTP on Knowledge Distillation,
-Pruning and Quantization with Prof. Ashwin Srinivasan &#8594 Research Associate at Google Research</a></li>
-        </ol>
-        </section>
-
-
-
-
-				<!-- Uncomment to add misc section -->
-        <!--, such as confidence calibration, detecting out-of-distribution sample to abstain from making decisions on unknown classes, and improving generalization in a continual learning setting. Additionally, my work also has been in optimizing DNN parameters to obtain reliable light weight models. -->
-        <!-- <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <tr>
-            <td>
-              <heading>Misc</heading>
-            </td>
-          </tr>
-        </tbody></table>
-        <table width="100%" align="center" border="0" cellpadding="20"><tbody> -->
-					
-        <!-- Uncomment to Area chair info -->
-        <!-- 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle"><img src="images/cvf.jpg"></td>
-            <td width="75%" valign="center">
-              <a href="https://cvpr2022.thecvf.com/area-chairs">Area Chair, CVPR 2022</a>
-              <br>
-              <a href="http://cvpr2021.thecvf.com/area-chairs">Area Chair & Longuet-Higgins Award Committee Member, CVPR 2021</a>
-              <br>
-              <a href="http://cvpr2019.thecvf.com/area_chairs">Area Chair, CVPR 2019</a>
-              <br>
-              <a href="http://cvpr2018.thecvf.com/organizers/area_chairs">Area Chair, CVPR 2018</a>
-            </td>
-          </tr> -->
-
-				<!-- Uncomment to add blog post info	 -->
-        <!--
-          <tr>
-            <td align="center" style="padding:20px;width:25%;vertical-align:middle">
-							<heading>Basically <br> Blog Posts</heading>
-            </td>
-            <td width="75%" valign="middle">
-              <a href="https://arxiv.org/abs/2112.11687">Squareplus: A Softplus-Like Algebraic Rectifier</a>
-              <br>
-              <a href="https://arxiv.org/abs/2010.09714">A Convenient Generalization of Schlick's Bias and Gain Functions</a>
-              <br>
-              <a href="https://arxiv.org/abs/1704.07483">Continuously Differentiable Exponential Linear Units</a>
-            </td>
-          </tr> -->
-					
-					
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-            <td style="padding:0px">
-              <br>
-              <p style="text-align:center;font-size:small;">
-                Website inspired from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron's</a>.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
-  </table>
+  <main class="page">
+    <nav class="top-nav"><div>Ramya Hebbalaguppe</div><div class="nav-links"><a href="#research">Research</a><a href="#news">News</a><a href="#publications">Publications</a><a href="#team">Team</a><a href="#supervision">Supervision</a></div></nav>
+    <header class="hero"><div class="bio"><span class="eyebrow">Senior Scientist, TCS Research · Doctoral Researcher, IIT Delhi</span><h1>Ramya Hebbalaguppe</h1><p class="tagline">Reliable machine learning for deep neural networks and vision-language models — spanning confidence calibration, out-of-distribution detection, refinement, distillation, and test-time adaptation.</p><p>I am a Senior Scientist at TCS Research, working in the Deep Learning and Artificial Intelligence Group at the Research and Innovation Park, IIT Delhi. My doctoral research, supervised by <a href="https://www.cse.iitd.ac.in/~chetan/">Prof. Chetan Arora</a> at IIT Delhi, focuses on improving the reliability of deep neural network classifiers.</p><p>A central theme of my research is that accuracy alone is not sufficient for deployment in safety-critical settings. I develop methods that make models not only accurate, but also aware of their uncertainty, robust under distribution shift, and better calibrated for real-world decision making.</p><p>Before my doctoral research, I worked with <a href="https://sites.google.com/site/ramakrishnakakarala/research?authuser=0">Prof. Ramakrishna Kakarala</a> at Nanyang Technological University on HDR imaging for smartphone camera pipelines. This work received the Best Student Paper Award at SPIE 2012. I completed my Master’s degree at Dublin City University, advised by <a href="https://www.insight-centre.org/our-team/prof-noel-oconnor/">Prof. Noel O'Connor</a> and <a href="https://www.dcu.ie/insight/people/alan-smeaton">Prof. Alan Smeaton</a>, where I worked on reducing false alarms in surveillance camera networks.</p><div class="button-row"><a class="button primary" href="mailto:ramya.murthy@gmail.com">Email</a><a class="button" href="https://scholar.google.com/citations?user=IJjnjZIAAAAJ&hl=en">Google Scholar</a><a class="button" href="https://github.com/rhebbalaguppe">GitHub</a><a class="button" href="https://twitter.com/RHebbalaguppe">Twitter/X</a><a class="button" href="travel.html">Travel Map & Photos</a></div></div><div class="hero-photo-wrap"><a href="images/playa.png"><img class="hero-photo" src="images/playa.png" alt="Profile photo of Ramya Hebbalaguppe"></a></div></header>
+    <section id="research"><div class="section-header"><div><h2>Research Themes</h2><p class="section-kicker">Reliability as a first-class design principle rather than a post-hoc correction.</p></div></div><div class="theme-grid"><article class="theme-card"><div class="theme-icon">✓</div><h3>Reliable Deep Learning</h3><p>Confidence calibration, refinement, uncertainty estimation, and OOD detection.</p></article><article class="theme-card"><div class="theme-icon">◇</div><h3>Lightweight Reliability</h3><p>Knowledge distillation, compression, and calibrated student models.</p></article><article class="theme-card"><div class="theme-icon">↔</div><h3>Vision-Language Models</h3><p>Prompt calibration, VQA reliability, and test-time adaptation.</p></article><article class="theme-card"><div class="theme-icon">✦</div><h3>Creative & Immersive AI</h3><p>Generative image editing, motion transfer, and 3D/4D vision.</p></article></div></section>
+    <section id="news"><div class="section-header"><div><h2>Selected News</h2><p class="section-kicker">Recent publications and research updates.</p></div></div><ul class="news-list"><li><span class="year">2026</span><span><strong>ICLR Trustworthy AI:</strong> <em>Enhancing DNN Reliability with Refinement and Calibration</em>.</span></li><li><span class="year">2026</span><span><strong>ICLR Trustworthy AI:</strong> <em>Prompting without Panic</em>.</span></li><li><span class="year">2026</span><span><strong>WACV:</strong> <em>Curve Skeletonization in Continuous Domain</em>.</span></li><li><span class="year">2025</span><span><strong>ECML PKDD:</strong> <em>Better Features, Better Calibration</em>.</span></li><li><span class="year">2024</span><span><strong>ACCV Oral:</strong> Calibration Transfer via Knowledge Distillation.</span></li><li><span class="year">2022</span><span><strong>CVPR Oral:</strong> A Stitch in Time Saves Nine.</span></li></ul></section>
+    <section id="publications"><div class="section-header"><div><h2>Selected Publications</h2><p class="section-kicker">Representative work across reliability, calibration, VLMs, and visual computing.</p></div></div><div class="paper-list"><article class="paper-card">
+        <div class="paper-thumb"><img src="VQA_calib.png" alt="Refine and Align: Confidence Calibration Through Multi-Agent Interaction in VQA thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">VQA Calibration</span><span>AAAI 2026 · Alignment Track</span></div>
+        <h3><a href="#">Refine and Align: Confidence Calibration Through Multi-Agent Interaction in VQA</a></h3>
+        <p class="authors">Ayush Pandey, Jai Bardhan, Ishita Jain, <strong class="author-me">Ramya Hebbalaguppe</strong>, Rohan Raju Dhanakshirur, Lovekesh Vig</p>
+        <p>A debate-based multi-agent framework where specialized VLMs answer and generalist agents critique and aggregate responses to produce better-calibrated confidence estimates for VQA.</p>
+        </div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/refcal.png" alt="Enhancing Deep Neural Network Reliability with Refinement and Calibration thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Refinement + Calibration</span><span>ICLR 2026 · Trustworthy AI and Representational Alignment</span></div>
+        <h3><a href="https://arxiv.org/abs/2605.23249">Enhancing Deep Neural Network Reliability with Refinement and Calibration</a></h3>
+        <p class="authors"><strong class="author-me">Ramya Hebbalaguppe</strong>, Ajay Shastry, Soumya Suvra Ghosal, Chetan Arora</p>
+        <p>A unified reliability view connecting refinement and calibration, showing how representation learning can improve both discriminative utility and confidence quality.</p>
+        <p class="paper-links"><a href="https://arxiv.org/abs/2605.23249">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/tca.png" alt="Prompting without Panic: Attribute-aware, Zero-shot, Test-Time Calibration thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Test-Time Calibration</span><span>ICLR 2026 · Trustworthy AI</span></div>
+        <h3><a href="https://arxiv.org/abs/2506.22819">Prompting without Panic: Attribute-aware, Zero-shot, Test-Time Calibration</a></h3>
+        <p class="authors"><strong class="author-me">Ramya Hebbalaguppe</strong>, collaborators</p>
+        <p>An attribute-aware zero-shot test-time calibration approach for vision-language models, improving confidence reliability without retraining on task-specific labeled data.</p>
+        <p class="paper-links"><a href="https://arxiv.org/abs/2506.22819">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/cscd.png" alt="Curve Skeletonization in Continuous Domain for Meshes and Point Clouds thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">3D Geometry</span><span>WACV 2026</span></div>
+        <h3><a href="https://openaccess.thecvf.com/content/WACV2026/html/Bardhan_Curve_Skeletonization_in_Continuous_domain_for_Meshes_and_Point_Clouds_WACV_2026_paper.html">Curve Skeletonization in Continuous Domain for Meshes and Point Clouds</a></h3>
+        <p class="authors">Jai Bardhan, <strong class="author-me">Ramya Hebbalaguppe</strong>, Aravind Udupa</p>
+        <p>A continuous-domain approach to curve skeletonization for meshes and point clouds, designed to handle geometric structure across diverse 3D inputs.</p>
+        <p class="paper-links"><a href="https://openaccess.thecvf.com/content/WACV2026/html/Bardhan_Curve_Skeletonization_in_Continuous_domain_for_Meshes_and_Point_Clouds_WACV_2026_paper.html">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/better_features.png" alt="Better Features, Better Calibration: A Simple Fix for Overconfident Networks thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Calibration</span><span>ECML PKDD 2025 · Research Track</span></div>
+        <h3><a href="https://link.springer.com/chapter/10.1007/978-3-032-05962-8_14">Better Features, Better Calibration: A Simple Fix for Overconfident Networks</a></h3>
+        <p class="authors">Soumya Suvra Ghosal, <strong class="author-me">Ramya Hebbalaguppe</strong>, Dinesh Manocha</p>
+        <p>A representation-focused calibration method that addresses overconfidence by improving feature quality rather than only reshaping logits after training.</p>
+        <p class="paper-links"><a href="https://link.springer.com/chapter/10.1007/978-3-032-05962-8_14">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/Teaser_accv.png" alt="Calibration Transfer via Knowledge Distillation thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Oral · top 5.6%</span><span>ACCV 2024 · Oral Presentation</span></div>
+        <h3><a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Hebbalaguppe_Calibration_Transfer_via_Knowledge_Distillation_ACCV_2024_paper.pdf#">Calibration Transfer via Knowledge Distillation</a></h3>
+        <p class="authors"><strong class="author-me">Ramya Hebbalaguppe</strong>, Mayank Baranwal, Kartik Anand, Chetan Arora</p>
+        <p>Knowledge Distillation for Calibration (KD(C)) extends distillation beyond accuracy transfer to produce lightweight, accurate, and well-calibrated models.</p>
+        <p class="paper-links"><a href="https://openaccess.thecvf.com/content/ACCV2024/papers/Hebbalaguppe_Calibration_Transfer_via_Knowledge_Distillation_ACCV_2024_paper.pdf#">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/StyleCL.png" alt="Lifelong Learning in StyleGAN through Latent Subspaces thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Generative AI</span><span>Transactions on Machine Learning Research, 2024</span></div>
+        <h3><a href="#">Lifelong Learning in StyleGAN through Latent Subspaces</a></h3>
+        <p class="authors">Adarsh K, Anmol Garg, <strong class="author-me">Ramya Hebbalaguppe</strong>, Prathosh AP</p>
+        <p>StyleCL enables lifelong learning in StyleGAN through task-specific latent subspace dictionaries and lightweight feature adaptors while reducing catastrophic forgetting.</p>
+        </div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/LOMOE_teaser_2.png" alt="LoMOE: Localized Multi-Object Editing via Multi-Diffusion thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Image Editing</span><span>ACM Multimedia 2024</span></div>
+        <h3><a href="https://arxiv.org/abs/2403.00437">LoMOE: Localized Multi-Object Editing via Multi-Diffusion</a></h3>
+        <p class="authors">Goirik Chakrabarty, Aditya Chandrasekar, <strong class="author-me">Ramya Hebbalaguppe</strong>, Prathosh AP</p>
+        <p>A zero-shot multi-diffusion framework for localized multi-object editing, supporting additions, replacements, and edits in a single pass.</p>
+        <p class="paper-links"><a href="https://arxiv.org/abs/2403.00437">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/ReMOVE_Teaser.png" alt="ReMOVE: A Reference-free Metric for Object Erasure thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Evaluation</span><span>CVPRW 2024 · Evaluation of Generative Foundation Models</span></div>
+        <h3><a href="https://github.com/chandrasekaraditya/ReMOVE">ReMOVE: A Reference-free Metric for Object Erasure</a></h3>
+        <p class="authors">Aditya Chandrasekar, Goirik Chakrabarty, Jai Bardhan, <strong class="author-me">Ramya Hebbalaguppe</strong>, Prathosh AP</p>
+        <p>A reference-free metric for assessing object erasure in diffusion-based image editing, especially where no clean reference image exists.</p>
+        <p class="paper-links"><a href="https://github.com/chandrasekaraditya/ReMOVE">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/Transfer4D-CVPR-cropped.jpeg" alt="Transfer4D: A Framework for Frugal Motion Capture and Deformation Transfer thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">4D Vision</span><span>CVPR 2023</span></div>
+        <h3><a href="https://transfer4d.github.io/#">Transfer4D: A Framework for Frugal Motion Capture and Deformation Transfer</a></h3>
+        <p class="authors">Shubh Maheshwari, Rahul Narain, <strong class="author-me">Ramya Hebbalaguppe</strong></p>
+        <p>A frugal alternative to expensive motion-capture pipelines, transferring motion from incomplete single-view depth video to semantically similar target meshes.</p>
+        <p class="paper-links"><a href="https://transfer4d.github.io/#">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/data_diet.png" alt="Calibrating Deep Neural Networks Using Explicit Regularisation and Dynamic Data Pruning thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Spotlight · top 10%</span><span>WACV 2023 · Spotlight Presentation</span></div>
+        <h3><a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html">Calibrating Deep Neural Networks Using Explicit Regularisation and Dynamic Data Pruning</a></h3>
+        <p class="authors">Rishabh Patra, <strong class="author-me">Ramya Hebbalaguppe</strong>, Tirtharaj Dash, Gautam Shroff, Lovekesh Vig</p>
+        <p>A differentiable calibration loss and dynamic data pruning strategy to improve calibration while reducing training effort.</p>
+        <p class="paper-links"><a href="https://openaccess.thecvf.com/content/WACV2023/html/Patra_Calibrating_Deep_Neural_Networks_Using_Explicit_Regularisation_and_Dynamic_Data_WACV_2023_paper.html">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/CnC.png" alt="A Novel Data Augmentation Technique for Out-of-Distribution Sample Detection using Compounded Corruptions thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">OOD Detection</span><span>ECML 2022</span></div>
+        <h3><a href="https://github.com/cnc-ood/">A Novel Data Augmentation Technique for Out-of-Distribution Sample Detection using Compounded Corruptions</a></h3>
+        <p class="authors"><strong class="author-me">Ramya Hebbalaguppe</strong>, Soumya Suvra Ghosal, Jatin Prakash, Harshad Khadilkar, Chetan Arora</p>
+        <p>Compounded Corruptions (CnC) synthesizes OOD-like samples without hold-out OOD data and improves OOD detection accuracy and inference-time behavior.</p>
+        <p class="paper-links"><a href="https://github.com/cnc-ood/">paper / project</a></p></div>
+      </article>
+<article class="paper-card">
+        <div class="paper-thumb"><img src="images/stitch_in_time.png" alt="A Stitch in Time Saves Nine: A Train-Time Regularizing Loss for Improved Neural Network Calibration thumbnail"></div>
+        <div class="paper-body"><div class="paper-meta"><span class="badge">Oral · top 4%</span><span>CVPR 2022 · Oral Presentation</span></div>
+        <h3><a href="https://github.com/mdca-loss/MDCA-Calibration">A Stitch in Time Saves Nine: A Train-Time Regularizing Loss for Improved Neural Network Calibration</a></h3>
+        <p class="authors"><strong class="author-me">Ramya Hebbalaguppe</strong>, Jatin Prakash, Neelabh Madan, Chetan Arora</p>
+        <p>MDCA is a train-time multi-class calibration objective that can be combined with task losses across image, NLP, speech, and segmentation settings.</p>
+        <p class="paper-links"><a href="https://github.com/mdca-loss/MDCA-Calibration">paper / project</a></p></div>
+      </article></div></section>
+    <section id="team"><div class="section-header"><div><h2>Current Research Team</h2><p class="section-kicker">Research and Innovation Park, IIT Delhi.</p></div></div><div class="people-card"><ol><li><a href="https://www.linkedin.com/in/ayush-pandey-85810a202/">Ayush Pandey</a> <span>— Calibration in Agentic AI and LLMs</span></li></ol><p><strong>Interns (Summer 2025):</strong> Arman Fatima (IIT Dharwad), Ishita Jain (GaTech), Ayush Pandey (IISER Bhopal), Khuushi Maheshwari (MIT), and Nishant Singh (IIIT Delhi).</p></div></section>
+    <section id="alumni"><div class="section-header"><div><h2>Alumni</h2><p class="section-kicker">Researchers including full-time members, pre-doctoral fellows, and research interns.</p></div></div><div class="people-card"><ol><li><a href="https://srihegde.github.io/">Srinidhi Hegde</a> <span>→ Doctoral Student at Purdue University (Prof. Sotiris Nousias)</span></li>
+<li><a href="https://researchweb.iiit.ac.in/~jai.bardhan/">Jai Bardhan</a> <span>→ Researcher at the Czech Technical University in Prague (with Dr. Josef Sivic)</span></li>
+<li><a href="https://app.bsky.cz/profile/adarshk22.bsky.social">Adarsh Kappiyath</a> <span>→ Doctoral student at the University of Surrey, UK (with Dr. Lu Yin and Dr. Xiatian Zhu)</span></li>
+<li><a href="https://pranaygupta36.github.io/">Pranay Gupta</a> <span>→ Doctoral student at CMU (with Prof. Henny Admoni)</span></li>
+<li><strong>Meghal Dani</strong> <span>→ Doctoral student at IMPRS-IS, Max Planck School (with Prof. Zeynep Akata and Prof. Bernhard Schölkopf)</span></li>
+<li><a href="https://surabhisnath.github.io">Surabhi Nath</a> <span>→ Doctoral student at the Max Planck School of Cognition and the MPI for Biological Cybernetics (with Prof. Peter Dayan)</span></li>
+<li><a href="https://goirik-chakrabarty.github.io/">Goirik Chakrabarty</a> <span>→ Doctoral student, University Göttingen (with Prof. Fabian Sinz)</span></li>
+<li><a href="https://in.linkedin.com/in/jatin-prakash-6874b91a4">Jatin Prakash</a> <span>→ Doctoral student at New York University (with Rajesh Ranganath)</span></li>
+<li><strong>Neelabh Madan</strong> <span>→ Doctoral student at New York University</span></li>
+<li><a href="https://gaurav16gupta.github.io/">Gaurav Gupta</a> <span>→ Doctoral student at Rice University</span></li>
+<li><a href="https://research.manchester.ac.uk/en/persons/apoorv.khattar-postgrad">Apoorv Khattar</a> <span>→ Doctoral student at University of Manchester, UK</span></li>
+<li><strong>Neel Rakholia</strong> <span>→ Masters Student at Stanford</span></li>
+<li><a href="https://sharanry.github.io/">Sharan Yalburgi</a> <span>→ Visiting researcher at MIT probabilistic ML project</span></li>
+<li><a href="https://shubhmaheshwari.github.io/">Shubh Maheshwari</a> <span>→ Graduate student at UCSD</span></li>
+<li><strong>Jitender Maurya</strong> <span>→ Researcher, Toshiba</span></li>
+<li><strong>Archie Gupta</strong> <span>→ SDE, Microsoft</span></li>
+<li><strong>Varun Jain</strong> <span>→ Masters student at CMU → Microsoft Fellow</span></li>
+<li><a href="https://www.linkedin.com/in/addityapopli/?originalSubdomain=in">Additya Popli</a> <span>→ SDE at Google</span></li>
+<li><strong>Kshitijz Jain</strong> <span>→ Grad student at IIT Delhi</span></li>
+<li><strong>Aravind Udupa</strong> <span>→ Grad student at IIT Delhi</span></li>
+<li><strong>Soumya Suvra Ghosal</strong> <span>→ Masters Student at University of Wisconsin</span></li>
+<li><strong>Gaurav Garg</strong> <span>→ Accenture</span></li>
+<li><strong>Ramakrishna Perla</strong> <span>→ TTEC Digital</span></li></ol></div></section>
+    <section id="supervision"><div class="section-header"><div><h2>Academia: Thesis Supervision</h2><p class="section-kicker">Student supervision and thesis mentoring.</p></div></div><div class="people-card"><ol><li><strong>Aditya C</strong> (IISc Bangalore) — co-supervisor for M.Tech thesis on metrics for image editing; Best Thesis Award.</li><li><a href="https://www.linkedin.com/in/shreyashmohatta/">Shreyash Mohatta</a> (BITS Goa) — M.Tech thesis on egocentric real-time gesture recognition with Dr. Ashwin Srinivasan → Masters student at NCSU.</li><li><strong>Rishabh Patra</strong> (BITS Goa) — B.Tech thesis on uncertainty calibration with Dr. Tirtharaj Dash → SDE, Amazon.</li><li><a href="https://sites.google.com/view/ashwinvaswani">Ashwin Vaswani</a> (BITS Goa) — BTP on data-free iterative knowledge distillation with Prof. Ashwin Srinivasan → Google Research → Masters student at CMU.</li><li><a href="https://scholar.google.com/citations?user=ZdTC1joAAAAJ&hl=en">Het Shah</a> (BITS Goa) — BTP on knowledge distillation, pruning, and quantization with Prof. Ashwin Srinivasan → Research Associate at Google Research.</li></ol></div></section>
+    <footer>Website inspired by <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron’s academic website</a>.</footer>
+  </main>
 </body>
-
 </html>

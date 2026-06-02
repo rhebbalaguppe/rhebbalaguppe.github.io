@@ -1,348 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Map & Photo Stories | Ramya Hebbalaguppe</title>
-<link rel="preconnect" href="https://unpkg.com">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>
-  :root {
-    --ink:#283044; --muted:#657084; --paper:#fffaf6; --surface:rgba(255,255,255,.86); --surface-strong:#fff;
-    --pastel-blue:#d9e9f5; --pastel-lilac:#eadff3; --pastel-peach:#f8dfd0; --pastel-mint:#dbeee4; --rose:#e8b8c3;
-    --accent:#7fa6c7; --accent-dark:#496f91; --line:rgba(127,166,199,.25); --shadow:0 18px 50px rgba(45,58,78,.14); --soft-shadow:0 8px 24px rgba(45,58,78,.10);
-    --radius-xl:28px; --radius-lg:20px; --radius-md:14px;
-  }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:radial-gradient(circle at top left, rgba(217,233,245,.95), transparent 34rem), radial-gradient(circle at top right, rgba(248,223,208,.78), transparent 32rem), linear-gradient(135deg,#fffaf6 0%,#f7fbff 55%,#fff8f3 100%); min-height:100vh; }
-  a { color:var(--accent-dark); text-decoration:none; } a:hover { text-decoration:underline; }
-  .page { width:min(1180px, calc(100% - 32px)); margin:0 auto; padding:28px 0 44px; }
-  .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:28px; color:var(--muted); font-size:14px; }
-  .brand { font-weight:800; letter-spacing:.02em; color:var(--ink); } .navlinks { display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
-  .hero { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:var(--radius-xl); padding:clamp(28px,5vw,56px); background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(255,255,255,.62)), linear-gradient(120deg,rgba(217,233,245,.9),rgba(234,223,243,.55),rgba(248,223,208,.72)); box-shadow:var(--shadow); margin-bottom:24px; }
-  .hero::after { content:""; position:absolute; width:260px; height:260px; border-radius:999px; right:-80px; top:-90px; background:rgba(219,238,228,.86); }
-  .eyebrow { position:relative; z-index:1; display:inline-flex; gap:8px; padding:7px 12px; border-radius:999px; background:rgba(255,255,255,.74); border:1px solid var(--line); color:var(--accent-dark); font-size:13px; font-weight:750; margin-bottom:14px; }
-  h1 { position:relative; z-index:1; margin:0; font-size:clamp(36px,6vw,66px); line-height:.98; letter-spacing:-.045em; max-width:850px; }
-  .hero p { position:relative; z-index:1; max-width:880px; color:#4a5568; line-height:1.7; font-size:clamp(16px,2vw,19px); margin:18px 0 0; }
-  .actions { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; } .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.8); border:1px solid var(--line); box-shadow:var(--soft-shadow); font-weight:700; color:var(--accent-dark); }
-  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 26px; } .stat { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg); padding:18px; box-shadow:var(--soft-shadow); } .stat b { display:block; font-size:clamp(28px,4vw,42px); letter-spacing:-.04em; } .stat span { color:var(--muted); font-size:14px; }
-  .section { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-xl); box-shadow:var(--shadow); margin:24px 0; overflow:hidden; }
-  .section-inner { padding:22px; } .section-title { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; padding:24px 24px 8px; } h2 { margin:0; font-size:clamp(24px,3vw,34px); letter-spacing:-.035em; } .section-title p { margin:8px 0 0; color:var(--muted); line-height:1.6; }
-  #map { height:min(620px,72vh); min-height:390px; width:100%; border-radius:var(--radius-lg); border:1px solid var(--line); box-shadow:var(--soft-shadow); } .leaflet-popup-content-wrapper { border-radius:14px; }
-  .map-grid { display:grid; grid-template-columns:minmax(0,1fr) 270px; gap:18px; align-items:stretch; } .place-list { background:rgba(255,255,255,.58); border:1px solid var(--line); border-radius:var(--radius-lg); padding:14px; max-height:min(620px,72vh); overflow:auto; } .place-list h3 { margin:2px 0 12px; font-size:15px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; } .chips { display:flex; flex-wrap:wrap; gap:8px; } .chip { border:1px solid rgba(127,166,199,.3); background:rgba(255,255,255,.8); color:#435066; border-radius:999px; padding:7px 10px; font-size:13px; cursor:pointer; } .chip:hover { transform:translateY(-1px); box-shadow:var(--soft-shadow); }
-  .gallery-shell { display:grid; grid-template-columns:minmax(0,1fr) 230px; gap:18px; padding:22px; }
-  .slideshow-container { position:relative; overflow:hidden; border-radius:var(--radius-lg); border:1px solid var(--line); background:rgba(255,255,255,.78); box-shadow:var(--soft-shadow); }
-  .slide { display:none; animation:fade .45s ease-in-out; } @keyframes fade { from{opacity:.35; transform:translateY(4px)} to{opacity:1; transform:none} }
-  .image-frame { width:100%; height:min(70vh,680px); min-height:420px; display:flex; align-items:center; justify-content:center; padding:16px; background:linear-gradient(135deg,rgba(217,233,245,.86),rgba(248,223,208,.62)); border-bottom:1px solid var(--line); }
-  .image-frame img { display:block; max-width:100%; max-height:100%; width:100%; height:100%; object-fit:contain; border-radius:16px; background:rgba(255,255,255,.42); box-shadow:0 8px 24px rgba(45,58,78,.12); }
-  .caption-panel { position:relative; display:block; padding:20px 22px 24px; background:rgba(255,255,255,.94); } .slide-kicker { color:var(--accent-dark); font-size:.82rem; text-transform:uppercase; letter-spacing:.11em; font-weight:850; margin-bottom:8px; } .caption { color:#394154; line-height:1.68; font-size:.98rem; } .caption b { color:var(--ink); }
-  .counter { position:absolute; top:18px; right:18px; z-index:3; background:rgba(40,48,68,.72); color:#fff; padding:6px 12px; border-radius:999px; font-size:13px; font-weight:750; backdrop-filter:blur(6px); }
-  .controls { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:16px; border-top:1px solid var(--line); background:rgba(255,255,255,.72); } button.control { border:0; cursor:pointer; border-radius:999px; padding:10px 16px; background:#fff; color:var(--accent-dark); font-weight:800; box-shadow:var(--soft-shadow); border:1px solid var(--line); } button.control:hover { transform:translateY(-1px); }
-  .thumb-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; max-height:760px; overflow:auto; padding:2px 2px 10px; } .thumb { position:relative; border:2px solid transparent; padding:0; border-radius:15px; overflow:hidden; height:90px; background:#fff; cursor:pointer; box-shadow:var(--soft-shadow); } .thumb.active { border-color:var(--accent); } .thumb img { width:100%; height:100%; object-fit:cover; display:block; } .thumb span { position:absolute; left:7px; bottom:7px; font-size:11px; font-weight:850; color:#fff; background:rgba(40,48,68,.66); border-radius:999px; padding:3px 7px; }
-  .note { color:var(--muted); line-height:1.65; font-size:14px; margin:12px 2px 0; } footer { color:var(--muted); text-align:center; font-size:13px; margin-top:28px; }
-  @media (max-width:860px) { .map-grid, .gallery-shell { grid-template-columns:1fr; } .place-list { max-height:none; } .thumb-grid { grid-template-columns:repeat(5,1fr); max-height:none; } .stats { grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px) { .topbar { align-items:flex-start; flex-direction:column; } .navlinks { justify-content:flex-start; } .stats { grid-template-columns:1fr; } .hero { padding:24px; } .thumb-grid { grid-template-columns:repeat(4,1fr); } .thumb { height:74px; } .image-frame { height:62vh; min-height:300px; padding:10px; } .caption-panel { padding:18px; } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Map & Photo Stories | Ramya Hebbalaguppe</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root {
+      --ink:#20303a; --muted:#60727c; --paper:#fffdfb; --surface:#ffffff;
+      --blue-50:#edf6fb; --blue-100:#d7eaf5; --blue-300:#8fb8d3; --blue-600:#3b789a;
+      --sage-50:#f0f7f1; --sage-100:#dceee0; --sage-600:#4f8460;
+      --peach-50:#fff2ec; --peach-100:#ffe0d2; --lavender-50:#f5f1fb; --lavender-100:#e8def7;
+      --border:#dfe8ed; --shadow:0 16px 44px rgba(45,72,89,.08); --radius:24px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:radial-gradient(circle at top left, rgba(215,234,245,.8), transparent 34rem), radial-gradient(circle at top right, rgba(232,222,247,.72), transparent 30rem), linear-gradient(180deg,#fbfdff 0%, var(--paper) 50%, #fffaf5 100%); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
+    a { color:var(--blue-600); text-decoration:none; } a:hover { text-decoration:underline; }
+    .page { width:min(1120px, calc(100% - 36px)); margin:0 auto; padding:28px 0 48px; }
+    .top-nav { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:22px; color:var(--muted); font-size:.94rem; }
+    .nav-links { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav-links a { padding:7px 12px; border:1px solid rgba(143,184,211,.45); border-radius:999px; background:rgba(255,255,255,.75); color:var(--ink); }
+    .hero { display:grid; grid-template-columns:1fr; gap:18px; padding:34px; border:1px solid rgba(143,184,211,.35); border-radius:30px; background:rgba(255,255,255,.84); box-shadow:var(--shadow); backdrop-filter:blur(10px); }
+    .eyebrow { display:inline-block; padding:5px 11px; border:1px solid var(--blue-100); border-radius:999px; background:var(--blue-50); color:#315a70; font-size:.86rem; font-weight:700; }
+    h1 { margin:.25rem 0 0; font-size:clamp(2.2rem,6vw,4.3rem); line-height:1.02; letter-spacing:-.045em; }
+    .subtitle { max-width:850px; margin:12px 0 0; color:#40525d; font-size:clamp(1.03rem,2vw,1.22rem); }
+    .button-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .button, button { font:inherit; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:8px 14px; border-radius:999px; border:1px solid var(--border); background:#fff; color:#20303a; font-weight:650; }
+    .button.primary { border-color:#b7d8e8; background:linear-gradient(135deg,var(--blue-50),#fff); color:#245b77; }
+    .button:hover { text-decoration:none; transform:translateY(-1px); box-shadow:0 8px 20px rgba(45,72,89,.08); }
+    section { margin-top:28px; padding:28px; border:1px solid rgba(223,232,237,.95); border-radius:var(--radius); background:rgba(255,255,255,.88); box-shadow:0 12px 34px rgba(45,72,89,.045); }
+    .section-header { display:flex; justify-content:space-between; gap:18px; align-items:end; margin-bottom:18px; }
+    h2 { margin:0; font-size:clamp(1.45rem,3vw,2rem); letter-spacing:-.025em; }
+    .section-kicker { margin:6px 0 0; color:var(--muted); }
+    .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:18px; }
+    .stat { padding:16px; border-radius:18px; border:1px solid var(--border); background:linear-gradient(135deg,#fff,var(--blue-50)); }
+    .stat strong { display:block; font-size:1.55rem; line-height:1; }
+    .stat span { color:var(--muted); font-size:.9rem; }
+    #map { height:560px; width:100%; border-radius:22px; border:1px solid var(--border); overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.4); }
+    .filter-row, .place-grid { display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }
+    .filter-btn, .place-chip { border:1px solid var(--border); background:#fff; border-radius:999px; padding:8px 12px; cursor:pointer; color:var(--ink); }
+    .filter-btn.active, .place-chip:hover { background:var(--sage-50); border-color:var(--sage-100); }
+    .slideshow-card { overflow:hidden; border:1px solid var(--border); border-radius:24px; background:#fff; box-shadow:0 12px 34px rgba(45,72,89,.06); }
+    .slide { display:none; } .slide.active { display:block; animation:fade .35s ease-in-out; }
+    @keyframes fade { from { opacity:.55; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+    .photo-frame { background:linear-gradient(135deg,var(--blue-50),var(--lavender-50)); min-height:420px; max-height:68vh; display:flex; align-items:center; justify-content:center; padding:18px; }
+    .photo-frame img { max-width:100%; max-height:64vh; width:auto; height:auto; object-fit:contain; border-radius:16px; box-shadow:0 12px 32px rgba(45,72,89,.16); background:#fff; }
+    .caption-panel { border-top:1px solid var(--border); padding:18px 22px 20px; background:linear-gradient(180deg,#fff,var(--peach-50)); }
+    .caption { color:#394b55; text-align:left; font-size:.98rem; } .caption b { color:#20303a; }
+    .counter { color:var(--muted); font-weight:650; }
+    .controls { display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; align-items:center; margin-top:14px; }
+    .control-buttons { display:flex; gap:10px; flex-wrap:wrap; }
+    .control-buttons button { border:1px solid #b7d8e8; background:linear-gradient(135deg,var(--blue-50),#fff); color:#245b77; border-radius:999px; padding:9px 14px; cursor:pointer; font-weight:700; }
+    .thumb-strip { display:grid; grid-template-columns:repeat(auto-fill,minmax(86px,1fr)); gap:10px; margin-top:16px; }
+    .thumb { border:2px solid transparent; border-radius:14px; overflow:hidden; padding:0; height:72px; background:#fff; cursor:pointer; }
+    .thumb img { width:100%; height:100%; object-fit:cover; display:block; } .thumb.active { border-color:var(--blue-300); }
+    .note { margin-top:14px; color:var(--muted); font-size:.94rem; }
+    footer { margin:28px 0 0; text-align:center; color:var(--muted); font-size:.92rem; }
+    @media (max-width:760px) { .page{width:min(100% - 22px,1120px); padding-top:18px;} .hero,section{padding:20px; border-radius:20px;} .stats{grid-template-columns:repeat(2,1fr);} #map{height:430px;} .photo-frame{min-height:310px; padding:12px;} .top-nav{align-items:flex-start; flex-direction:column;} }
+  </style>
 </head>
 <body>
-<main class="page">
-  <nav class="topbar" aria-label="Page navigation">
-    <div class="brand">Ramya Hebbalaguppe</div>
-    <div class="navlinks"><a href="index.html">Home</a><a href="#map-section">Map</a><a href="#photo-stories">Photo stories</a></div>
-  </nav>
+  <main class="page">
+    <nav class="top-nav" aria-label="Travel navigation">
+      <div>Ramya Hebbalaguppe</div>
+      <div class="nav-links"><a href="index.html">Home</a><a href="#map-section">Map</a><a href="#photo-stories">Photo Stories</a></div>
+    </nav>
 
-  <header class="hero">
-    <div class="eyebrow">🌍 Travel Map & Photo Stories</div>
-    <h1>Photos I took when I was not in them.</h1>
-    <p>A travel page combining the interactive map of countries visited with a personal gallery of landscapes, animals, cities, quiet corners, serendipitous detours with funny field notes — because research and exploration can happily coexist.</p>
-    <div class="actions"><a class="btn" href="#map-section">Explore the map</a><a class="btn" href="#photo-stories">Browse photo stories</a></div>
-  </header>
+    <header class="hero">
+      <div><span class="eyebrow">Travel Map & Photo Stories</span><h1>Research, detours, and field notes</h1>
+      <p class="subtitle">A travel page combining the interactive map of countries visited with a personal gallery of landscapes, animals, cities, quiet corners, serendipitous detours with funny field notes — because research and exploration can happily coexist.</p>
+      <div class="button-row"><a class="button primary" href="#map-section">Explore the map</a><a class="button" href="#photo-stories">View photo stories</a></div></div>
+      <div class="stats"><div class="stat"><strong>29</strong><span>places marked</span></div><div class="stat"><strong>19</strong><span>photo stories</span></div><div class="stat"><strong>4</strong><span>regions</span></div><div class="stat"><strong>∞</strong><span>field notes</span></div></div>
+    </header>
 
-  <section class="stats" aria-label="Travel summary">
-    <div class="stat"><b>29</b><span>places marked</span></div>
-    <div class="stat"><b>26</b><span>countries and regions</span></div>
-    <div class="stat"><b>4</b><span>world regions</span></div>
-    <div class="stat"><b>19</b><span>photo stories</span></div>
-  </section>
+    <section id="map-section">
+      <div class="section-header"><div><h2>Interactive travel map</h2><p class="section-kicker">A soft, clickable map of countries and places visited.</p></div></div>
+      <div id="map"></div>
+      <div class="filter-row"><button class="filter-btn active" onclick="filterRegion('All', this)">All</button><button class="filter-btn" onclick="filterRegion('Europe', this)">Europe</button><button class="filter-btn" onclick="filterRegion('Asia', this)">Asia</button><button class="filter-btn" onclick="filterRegion('Americas', this)">Americas</button><button class="filter-btn" onclick="filterRegion('Oceania', this)">Oceania</button></div>
+      <div class="place-grid" id="placeGrid"><button class="place-chip" data-region="Europe" onclick="focusPlace(0)">Italy</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(1)">Vatican</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(2)">France</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(3)">Ireland</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(4)">United Kingdom</button>
+<button class="place-chip" data-region="Oceania" onclick="focusPlace(5)">Australia</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(6)">Chile</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(7)">United States</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(8)">United Arab Emirates (UAE)</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(9)">Singapore</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(10)">Indonesia</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(11)">Thailand</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(12)">Vietnam</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(13)">Malaysia</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(14)">Japan</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(15)">India</button>
+<button class="place-chip" data-region="Asia" onclick="focusPlace(16)">Sri Lanka</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(17)">Sicily</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(18)">Austria</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(19)">Canada</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(20)">Mexico</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(21)">Poland</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(22)">Greece</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(23)">Germany</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(24)">Sweden</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(25)">Denmark</button>
+<button class="place-chip" data-region="Europe" onclick="focusPlace(26)">Portugal</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(27)">Grand Canyon</button>
+<button class="place-chip" data-region="Americas" onclick="focusPlace(28)">Rio de Janeiro, Brazil</button></div>
+    </section>
 
-  <section class="section" id="map-section">
-    <div class="section-title"><div><h2>Interactive travel map</h2><p>Click a marker or place chip to revisit a country, city, canyon, island, or detour.</p></div></div>
-    <div class="section-inner map-grid">
-      <div id="map" aria-label="Interactive map of countries visited"></div>
-      <aside class="place-list"><h3>Places</h3><div class="chips" id="placeChips"></div></aside>
-    </div>
-  </section>
+    <section id="photo-stories">
+      <div class="section-header"><div><h2>Photo Stories</h2><p class="section-kicker">Full images are shown without cropping; captions sit below each image for easier reading.</p></div><div class="counter" id="counter"></div></div>
+      <div class="slideshow-card" id="slideshow">          <article class="slide" data-index="0">
+            <div class="photo-frame"><img src="images/Lousiana_gator_Swamp.jpg" alt="Travel photo 1"></div>
+            <div class="caption-panel"><div class="caption"><b>[Jun'22: New Orleans, USA]</b> It’s that moment when you try to look smiling and friendly while silently screaming, 'Please don’t eat me!' Stress level: Jurassic Park. When our alligator baby chooses me and definitely knows how to say hello. It’s just that its idea of a friendly greeting is to invite me to stick out my hand and get a ‘snappy’ petting session!</div></div>
+          </article>
+          <article class="slide" data-index="1">
+            <div class="photo-frame"><img src="images/Borobudur.jpg" alt="Travel photo 2"></div>
+            <div class="caption-panel"><div class="caption"><b>[Indonesia, Oct'10]</b> Silhouette of Buddha at Borobodur. The image was captured at Sunrise, around 5AM. The Borobodur sunrise tour is something people visiting Indonesia cannot miss. The tranquility it had offered is etched deep in my mind.</div></div>
+          </article>
+          <article class="slide" data-index="2">
+            <div class="photo-frame"><img src="images/Krabi_2011.JPG" alt="Travel photo 3"></div>
+            <div class="caption-panel"><div class="caption"><b>[Aug'11: Khao Sok National Park, Thailand]</b> Vacationing in Khao Sok was a blast! Our treehouse buddy was this guy—a snake who clearly ran the local branch of a Computer Vision Corp. Just that it was truly my energy minimizing, and a deformable spline like in vision. On the same treehouse as ours it appeared to hold board meetings and the birds gossip about possibly the futility of human existence!</div></div>
+          </article>
+          <article class="slide" data-index="3">
+            <div class="photo-frame"><img src="images/syracruse.JPG" alt="Travel photo 4"></div>
+            <div class="caption-panel"><div class="caption"><b>[Jul'15: Syracruse, Italy]</b>, Ah, Cruise in Syracuse: A greek city like town with significant historical roots and Syracuse, the birthplace of Archimedes, where you can almost hear him yelling, "Eureka!". Back in the day, I was as skinny as a Greek godess— well, at least in my dreams. Now, fighting an eternal battle with my waistband. Appears battles are perrenial, for eg., battling for GPUs/space in this wild AI world.</div></div>
+          </article>
+          <article class="slide" data-index="4">
+            <div class="photo-frame"><img src="images/deerAtKaziranga.JPG" alt="Travel photo 5"></div>
+            <div class="caption-panel"><div class="caption"><b>[Apr'12: Kaziranga National Park, India]</b> In the lush landscape of Kaziranga, a solitary deer stood near the placid lake, feeling a bit like the last guest at a party that ended hours ago. As the sun dipped below the horizon, casting a the deers own shadow over the water, the deer sighed dramatically, thinking, “So, this is what they meant by ‘me-time.’”</div></div>
+          </article>
+          <article class="slide" data-index="5">
+            <div class="photo-frame"><img src="images/FoxAndesMountainRange_chile.JPG" alt="Travel photo 6"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'15: Andes mountain range, Chile, South America]</b> Andes's most elusive runway model is this fox. The Andean fox sports a dense, chic reddish-brown coat and thrives in various environments—unlike us, who demand AC and heating even when the weather is perfectly fine. Who's the real adaptable creature here? Foxes in Chile are like expert ninjas—they’re elusive, often vanishing into thin air. But wave around some food, and suddenly they become as common as WiFi in a coffee shop!</div></div>
+          </article>
+          <article class="slide" data-index="6">
+            <div class="photo-frame"><img src="images/LadyonaHammock.jpg" alt="Travel photo 7"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'09: Botanical gardens, Singapore]</b> As you lounge in your royal hammock, with grace and in a state of ultimate relaxation. Here's to a day full of gentle breeze, zero mosquito bites in SG humid weather, and endless hammock-time dreams.</div></div>
+          </article>
+          <article class="slide" data-index="7">
+            <div class="photo-frame"><img src="images/Delhi-Dec-2016.jpg" alt="Travel photo 8"></div>
+            <div class="caption-panel"><div class="caption"><b>[Dec'16: Pepsi's kids, Delhi]</b> So what if the mom died....how can we let these cute puppies die without food. Thanks to god for giving me wisdom to keep them warm and greateful for giving them life. Caltech hoodie put to some use.</div></div>
+          </article>
+          <article class="slide" data-index="8">
+            <div class="photo-frame"><img src="images/goose.jpg" alt="Travel photo 9"></div>
+            <div class="caption-panel"><div class="caption"><b>[Mar'18:Canada Goose, Santa Rosa, USA]</b> Geese aren't plain interested to pose - bad subjects!! they are</div></div>
+          </article>
+          <article class="slide" data-index="9">
+            <div class="photo-frame"><img src="images/venice_OCt12.jpg" alt="Travel photo 10"></div>
+            <div class="caption-panel"><div class="caption"><b>[Venice]</b> Us, struck by Fernweh</div></div>
+          </article>
+          <article class="slide" data-index="10">
+            <div class="photo-frame"><img src="images/Sunset_DUbai_2016.jpg" alt="Travel photo 11"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'16, Dubai]</b> Deep in thought as the jet and the sunset are engaged in a mesmerizing dance, making me a luckiest passenger on earth.</div></div>
+          </article>
+          <article class="slide" data-index="11">
+            <div class="photo-frame"><img src="images/cork_ireland.jpg" alt="Travel photo 12"></div>
+            <div class="caption-panel"><div class="caption"><b>[Cork, Ireland'12]</b> View behind our home.</div></div>
+          </article>
+          <article class="slide" data-index="12">
+            <div class="photo-frame"><img src="images/PonteVechhio.jpg" alt="Travel photo 13"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'12, Florence Italy]</b> PonteVechhio, (built 1345) this medieval stone bridge, hosts goldsmiths and jewelers, creating a vibrant atmosphere. Its picturesque views of the Arno.</div></div>
+          </article>
+          <article class="slide" data-index="13">
+            <div class="photo-frame"><img src="images/Frendicoes.jpg" alt="Travel photo 14"></div>
+            <div class="caption-panel"><div class="caption"><b>[Frendicoes, Delhi]</b> Frendicoes Animal Shelter in Delhi is a haven for rescued animals, offering them safety, care, and a second chance at life. Now shouldn't we be thinking of a more humane society for all living beings.</div></div>
+          </article>
+          <article class="slide" data-index="14">
+            <div class="photo-frame"><img src="images/Korea.jpg" alt="Travel photo 15"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'19, Korea]</b> Da-Seon (Tea Ceremony). It is one of the meditations to practice of mindfulness and concentration through brewing and drinking tea, Korea</div></div>
+          </article>
+          <article class="slide" data-index="15">
+            <div class="photo-frame"><img src="images/chao_praya_river_grand_palace.jpg" alt="Travel photo 16"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'11, Thailand]</b> The Grand Palace across Chao Praya river, Bangkok</div></div>
+          </article>
+          <article class="slide" data-index="16">
+            <div class="photo-frame"><img src="images/Ceynote.jpg" alt="Travel photo 17"></div>
+            <div class="caption-panel"><div class="caption"><b>[Ceynote, Mexico]</b> When you lack the courage to plunge into the refreshing waters, but you flaunt on a feed some adventure! So instead, you strategically position yourself at the edge, snapping epic photos that scream “I’m adventurous!” while I'm secretly plotting your escape route back to dry land.</div></div>
+          </article>
+          <article class="slide" data-index="17">
+            <div class="photo-frame"><img src="images/LombardStreetSFOAshramVisit.jpg" alt="Travel photo 18"></div>
+            <div class="caption-panel"><div class="caption"><b>[Mar'17: San Francisco]</b> On the way to Vedanta Society of Northern California, SFO, USA</div></div>
+          </article>
+          <article class="slide" data-index="18">
+            <div class="photo-frame"><img src="images/Sarita_n_I.jpg" alt="Travel photo 19"></div>
+            <div class="caption-panel"><div class="caption"><b>[Oct'17: France]</b> Sarita and I</div></div>
+          </article></div>
+      <div class="controls"><div class="control-buttons"><button onclick="prevSlide()">❮ Previous</button><button onclick="togglePlay()" id="playBtn">▶ Play</button><button onclick="nextSlide()">Next ❯</button></div><span class="counter" id="counterBottom"></span></div>
+      <div class="thumb-strip" id="thumbStrip">          <button class="thumb" type="button" onclick="goToSlide(0)" aria-label="Open photo 1"><img src="images/Lousiana_gator_Swamp.jpg" alt="Thumbnail 1"></button>
+          <button class="thumb" type="button" onclick="goToSlide(1)" aria-label="Open photo 2"><img src="images/Borobudur.jpg" alt="Thumbnail 2"></button>
+          <button class="thumb" type="button" onclick="goToSlide(2)" aria-label="Open photo 3"><img src="images/Krabi_2011.JPG" alt="Thumbnail 3"></button>
+          <button class="thumb" type="button" onclick="goToSlide(3)" aria-label="Open photo 4"><img src="images/syracruse.JPG" alt="Thumbnail 4"></button>
+          <button class="thumb" type="button" onclick="goToSlide(4)" aria-label="Open photo 5"><img src="images/deerAtKaziranga.JPG" alt="Thumbnail 5"></button>
+          <button class="thumb" type="button" onclick="goToSlide(5)" aria-label="Open photo 6"><img src="images/FoxAndesMountainRange_chile.JPG" alt="Thumbnail 6"></button>
+          <button class="thumb" type="button" onclick="goToSlide(6)" aria-label="Open photo 7"><img src="images/LadyonaHammock.jpg" alt="Thumbnail 7"></button>
+          <button class="thumb" type="button" onclick="goToSlide(7)" aria-label="Open photo 8"><img src="images/Delhi-Dec-2016.jpg" alt="Thumbnail 8"></button>
+          <button class="thumb" type="button" onclick="goToSlide(8)" aria-label="Open photo 9"><img src="images/goose.jpg" alt="Thumbnail 9"></button>
+          <button class="thumb" type="button" onclick="goToSlide(9)" aria-label="Open photo 10"><img src="images/venice_OCt12.jpg" alt="Thumbnail 10"></button>
+          <button class="thumb" type="button" onclick="goToSlide(10)" aria-label="Open photo 11"><img src="images/Sunset_DUbai_2016.jpg" alt="Thumbnail 11"></button>
+          <button class="thumb" type="button" onclick="goToSlide(11)" aria-label="Open photo 12"><img src="images/cork_ireland.jpg" alt="Thumbnail 12"></button>
+          <button class="thumb" type="button" onclick="goToSlide(12)" aria-label="Open photo 13"><img src="images/PonteVechhio.jpg" alt="Thumbnail 13"></button>
+          <button class="thumb" type="button" onclick="goToSlide(13)" aria-label="Open photo 14"><img src="images/Frendicoes.jpg" alt="Thumbnail 14"></button>
+          <button class="thumb" type="button" onclick="goToSlide(14)" aria-label="Open photo 15"><img src="images/Korea.jpg" alt="Thumbnail 15"></button>
+          <button class="thumb" type="button" onclick="goToSlide(15)" aria-label="Open photo 16"><img src="images/chao_praya_river_grand_palace.jpg" alt="Thumbnail 16"></button>
+          <button class="thumb" type="button" onclick="goToSlide(16)" aria-label="Open photo 17"><img src="images/Ceynote.jpg" alt="Thumbnail 17"></button>
+          <button class="thumb" type="button" onclick="goToSlide(17)" aria-label="Open photo 18"><img src="images/LombardStreetSFOAshramVisit.jpg" alt="Thumbnail 18"></button>
+          <button class="thumb" type="button" onclick="goToSlide(18)" aria-label="Open photo 19"><img src="images/Sarita_n_I.jpg" alt="Thumbnail 19"></button></div>
+      <p class="note">Tip: use the arrow keys or swipe on mobile to move through the photo stories.</p>
+    </section>
 
-  <section class="section" id="photo-stories">
-    <div class="section-title"><div><h2>Photo stories</h2><p>Full images are displayed without cropping; captions sit below each image for comfortable reading.</p></div></div>
-    <div class="gallery-shell">
-      <div>
-        <div class="slideshow-container" id="slideshow"><div class="counter" id="counter"></div>
-          <article class="slide" aria-label="Travel photo 1 of 19">
-            <div class="image-frame">
-              <img src="images/Lousiana_gator_Swamp.jpg" alt="[Jun&#x27;22: New Orleans, USA] It’s that moment when you try to look smiling and fri">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 01</div>
-              <div class="caption"><b>[Jun'22: New Orleans, USA]</b> It’s that moment when you try to look smiling and friendly while silently screaming, 'Please don’t eat me!' Stress level: Jurassic Park. When our alligator baby chooses me and definitely knows how to say hello. It’s just that its idea of a friendly greeting is to invite me to stick out my hand and get a ‘snappy’ petting session!</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 2 of 19">
-            <div class="image-frame">
-              <img src="images/Borobudur.jpg" alt="[Indonesia, Oct&#x27;10] Silhouette of Buddha at Borobodur. The image was captured at">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 02</div>
-              <div class="caption"><b>[Indonesia, Oct'10]</b> Silhouette of Buddha at Borobodur. The image was captured at Sunrise, around 5AM. The Borobodur sunrise tour is something people visiting Indonesia cannot miss. The tranquility it had offered is etched deep in my mind.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 3 of 19">
-            <div class="image-frame">
-              <img src="images/Krabi_2011.JPG" alt="[Aug&#x27;11: Khao Sok National Park, Thailand] Vacationing in Khao Sok was a blast! ">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 03</div>
-              <div class="caption"><b>[Aug'11: Khao Sok National Park, Thailand]</b> Vacationing in Khao Sok was a blast! Our treehouse buddy was this guy—a snake who clearly ran the local branch of a Computer Vision Corp. Just that it was truly my energy minimizing, and a deformable spline like in vision. On the same treehouse as ours it appeared to hold board meetings and the birds gossip about possibly the futility of human existence!</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 4 of 19">
-            <div class="image-frame">
-              <img src="images/syracruse.JPG" alt="[Jul&#x27;15: Syracruse, Italy], Ah, Cruise in Syracuse: A greek city like town with ">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 04</div>
-              <div class="caption"><b>[Jul'15: Syracruse, Italy]</b>, Ah, Cruise in Syracuse: A greek city like town with significant historical roots and Syracuse, the birthplace of Archimedes, where you can almost hear him yelling, "Eureka!". Back in the day, I was as skinny as a Greek godess— well, at least in my dreams. Now, fighting an eternal battle with my waistband. Appears battles are perrenial, for eg., battling for GPUs/space in this wild AI world.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 5 of 19">
-            <div class="image-frame">
-              <img src="images/deerAtKaziranga.JPG" alt="[Apr&#x27;12: Kaziranga National Park, India] In the lush landscape of Kaziranga, a s">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 05</div>
-              <div class="caption"><b>[Apr'12: Kaziranga National Park, India]</b> In the lush landscape of Kaziranga, a solitary deer stood near the placid lake, feeling a bit like the last guest at a party that ended hours ago. As the sun dipped below the horizon, casting a the deers own shadow over the water, the deer sighed dramatically, thinking, “So, this is what they meant by ‘me-time.’”</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 6 of 19">
-            <div class="image-frame">
-              <img src="images/FoxAndesMountainRange_chile.JPG" alt="[Oct&#x27;15: Andes mountain range, Chile, South America] Andes&#x27;s most elusive runway">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 06</div>
-              <div class="caption"><b>[Oct'15: Andes mountain range, Chile, South America]</b> Andes's most elusive runway model is this fox. The Andean fox sports a dense, chic reddish-brown coat and thrives in various environments—unlike us, who demand AC and heating even when the weather is perfectly fine. Who's the real adaptable creature here? Foxes in Chile are like expert ninjas—they’re elusive, often vanishing into thin air. But wave around some food, and suddenly they become as common as WiFi in a coffee shop!</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 7 of 19">
-            <div class="image-frame">
-              <img src="images/LadyonaHammock.jpg" alt="[Oct&#x27;09: Botanical gardens, Singapore] As you lounge in your royal hammock, with">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 07</div>
-              <div class="caption"><b>[Oct'09: Botanical gardens, Singapore]</b> As you lounge in your royal hammock, with grace and in a state of ultimate relaxation. Here's to a day full of gentle breeze, zero mosquito bites in SG humid weather, and endless hammock-time dreams.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 8 of 19">
-            <div class="image-frame">
-              <img src="images/Delhi-Dec-2016.jpg" alt="[Dec&#x27;16: Pepsi&#x27;s kids, Delhi] So what if the mom died....how can we let these cu">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 08</div>
-              <div class="caption"><b>[Dec'16: Pepsi's kids, Delhi]</b> So what if the mom died....how can we let these cute puppies die without food. Thanks to god for giving me wisdom to keep them warm and greateful for giving them life. Caltech hoodie put to some use.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 9 of 19">
-            <div class="image-frame">
-              <img src="images/goose.jpg" alt="[Mar&#x27;18:Canada Goose, Santa Rosa, USA] Geese aren&#x27;t plain interested to pose - b">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 09</div>
-              <div class="caption"><b>[Mar'18:Canada Goose, Santa Rosa, USA]</b> Geese aren't plain interested to pose - bad subjects!! they are</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 10 of 19">
-            <div class="image-frame">
-              <img src="images/venice_OCt12.jpg" alt="[Venice] Us, struck by Fernweh">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 10</div>
-              <div class="caption"><b>[Venice]</b> Us, struck by Fernweh</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 11 of 19">
-            <div class="image-frame">
-              <img src="images/Sunset_DUbai_2016.jpg" alt="[Oct&#x27;16, Dubai] Deep in thought as the jet and the sunset are engaged in a mesme">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 11</div>
-              <div class="caption"><b>[Oct'16, Dubai]</b> Deep in thought as the jet and the sunset are engaged in a mesmerizing dance, making me a luckiest passenger on earth.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 12 of 19">
-            <div class="image-frame">
-              <img src="images/cork_ireland.jpg" alt="[Cork, Ireland&#x27;12] View behind our home.">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 12</div>
-              <div class="caption"><b>[Cork, Ireland'12]</b> View behind our home.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 13 of 19">
-            <div class="image-frame">
-              <img src="images/PonteVechhio.jpg" alt="[Oct&#x27;12, Florence Italy] PonteVechhio, (built 1345) this medieval stone bridge, ">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 13</div>
-              <div class="caption"><b>[Oct'12, Florence Italy]</b> PonteVechhio, (built 1345) this medieval stone bridge, hosts goldsmiths and jewelers, creating a vibrant atmosphere. Its picturesque views of the Arno.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 14 of 19">
-            <div class="image-frame">
-              <img src="images/Frendicoes.jpg" alt="[Frendicoes, Delhi] Frendicoes Animal Shelter in Delhi is a haven for rescued an">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 14</div>
-              <div class="caption"><b>[Frendicoes, Delhi]</b> Frendicoes Animal Shelter in Delhi is a haven for rescued animals, offering them safety, care, and a second chance at life. Now shouldn't we be thinking of a more humane society for all living beings.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 15 of 19">
-            <div class="image-frame">
-              <img src="images/Korea.jpg" alt="[Oct&#x27;19, Korea] Da-Seon (Tea Ceremony). It is one of the meditations to practice">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 15</div>
-              <div class="caption"><b>[Oct'19, Korea]</b> Da-Seon (Tea Ceremony). It is one of the meditations to practice of mindfulness and concentration through brewing and drinking tea, Korea</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 16 of 19">
-            <div class="image-frame">
-              <img src="images/chao_praya_river_grand_palace.jpg" alt="[Oct&#x27;11, Thailand] The Grand Palace across Chao Praya river, Bangkok">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 16</div>
-              <div class="caption"><b>[Oct'11, Thailand]</b> The Grand Palace across Chao Praya river, Bangkok</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 17 of 19">
-            <div class="image-frame">
-              <img src="images/Ceynote.jpg" alt="[Ceynote, Mexico] When you lack the courage to plunge into the refreshing waters">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 17</div>
-              <div class="caption"><b>[Ceynote, Mexico]</b> When you lack the courage to plunge into the refreshing waters, but you flaunt on a feed some adventure! So instead, you strategically position yourself at the edge, snapping epic photos that scream “I’m adventurous!” while I'm secretly plotting your escape route back to dry land.</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 18 of 19">
-            <div class="image-frame">
-              <img src="images/LombardStreetSFOAshramVisit.jpg" alt="[Mar&#x27;17: San Francisco] On the way to Vedanta Society of Northern California, SF">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 18</div>
-              <div class="caption"><b>[Mar'17: San Francisco]</b> On the way to Vedanta Society of Northern California, SFO, USA</div>
-            </div>
-          </article>
-          <article class="slide" aria-label="Travel photo 19 of 19">
-            <div class="image-frame">
-              <img src="images/Sarita_n_I.jpg" alt="[Oct&#x27;17: France] Sarita and I">
-            </div>
-            <div class="caption-panel">
-              <div class="slide-kicker">Photo story 19</div>
-              <div class="caption"><b>[Oct'17: France]</b> Sarita and I</div>
-            </div>
-          </article>
-          <div class="controls"><button class="control" onclick="prevSlide()">❮ Prev</button><button class="control" onclick="togglePlay()" id="playBtn">▶ Play</button><button class="control" onclick="nextSlide()">Next ❯</button></div>
-        </div>
-        <p class="note">Tip: use the arrow keys or swipe on mobile to move through the gallery. Music starts only when Play is pressed.</p>
-      </div>
-      <aside><div class="thumb-grid">
-          <button class="thumb" type="button" onclick="goToSlide(0)" aria-label="Open photo 1">
-            <img src="images/Lousiana_gator_Swamp.jpg" alt="Thumbnail 1"><span>01</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(1)" aria-label="Open photo 2">
-            <img src="images/Borobudur.jpg" alt="Thumbnail 2"><span>02</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(2)" aria-label="Open photo 3">
-            <img src="images/Krabi_2011.JPG" alt="Thumbnail 3"><span>03</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(3)" aria-label="Open photo 4">
-            <img src="images/syracruse.JPG" alt="Thumbnail 4"><span>04</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(4)" aria-label="Open photo 5">
-            <img src="images/deerAtKaziranga.JPG" alt="Thumbnail 5"><span>05</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(5)" aria-label="Open photo 6">
-            <img src="images/FoxAndesMountainRange_chile.JPG" alt="Thumbnail 6"><span>06</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(6)" aria-label="Open photo 7">
-            <img src="images/LadyonaHammock.jpg" alt="Thumbnail 7"><span>07</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(7)" aria-label="Open photo 8">
-            <img src="images/Delhi-Dec-2016.jpg" alt="Thumbnail 8"><span>08</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(8)" aria-label="Open photo 9">
-            <img src="images/goose.jpg" alt="Thumbnail 9"><span>09</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(9)" aria-label="Open photo 10">
-            <img src="images/venice_OCt12.jpg" alt="Thumbnail 10"><span>10</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(10)" aria-label="Open photo 11">
-            <img src="images/Sunset_DUbai_2016.jpg" alt="Thumbnail 11"><span>11</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(11)" aria-label="Open photo 12">
-            <img src="images/cork_ireland.jpg" alt="Thumbnail 12"><span>12</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(12)" aria-label="Open photo 13">
-            <img src="images/PonteVechhio.jpg" alt="Thumbnail 13"><span>13</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(13)" aria-label="Open photo 14">
-            <img src="images/Frendicoes.jpg" alt="Thumbnail 14"><span>14</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(14)" aria-label="Open photo 15">
-            <img src="images/Korea.jpg" alt="Thumbnail 15"><span>15</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(15)" aria-label="Open photo 16">
-            <img src="images/chao_praya_river_grand_palace.jpg" alt="Thumbnail 16"><span>16</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(16)" aria-label="Open photo 17">
-            <img src="images/Ceynote.jpg" alt="Thumbnail 17"><span>17</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(17)" aria-label="Open photo 18">
-            <img src="images/LombardStreetSFOAshramVisit.jpg" alt="Thumbnail 18"><span>18</span>
-          </button>
-          <button class="thumb" type="button" onclick="goToSlide(18)" aria-label="Open photo 19">
-            <img src="images/Sarita_n_I.jpg" alt="Thumbnail 19"><span>19</span>
-          </button>
-      </div></aside>
-    </div>
-  </section>
+    <footer>Travel page maintained as part of Ramya Hebbalaguppe’s personal academic website.</footer>
+  </main>
 
-  <footer>Designed as a small travel notebook — map, memory, field note, and occasional comedy.</footer>
-</main>
-<audio id="bgMusic" loop><source src="music/happy_travel_music.mp3" type="audio/mpeg"></audio>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-  const places = [{"name": "Italy", "lat": 41.8719, "lon": 12.5674, "region": "Europe"}, {"name": "Vatican", "lat": 41.9029, "lon": 12.4534, "region": "Europe"}, {"name": "France", "lat": 46.6034, "lon": 1.8883, "region": "Europe"}, {"name": "Ireland", "lat": 53.1424, "lon": -7.6921, "region": "Europe"}, {"name": "United Kingdom", "lat": 51.5074, "lon": -0.1278, "region": "Europe"}, {"name": "Australia", "lat": -25.2744, "lon": 133.7751, "region": "Oceania"}, {"name": "Chile", "lat": -35.6751, "lon": -71.543, "region": "Americas"}, {"name": "United States", "lat": 37.0902, "lon": -95.7129, "region": "Americas"}, {"name": "United Arab Emirates (UAE)", "lat": 23.4241, "lon": 53.8478, "region": "Asia"}, {"name": "Singapore", "lat": 1.3521, "lon": 103.8198, "region": "Asia"}, {"name": "Indonesia", "lat": -0.7893, "lon": 113.9213, "region": "Asia"}, {"name": "Thailand", "lat": 15.87, "lon": 100.9925, "region": "Asia"}, {"name": "Vietnam", "lat": 14.0583, "lon": 108.2772, "region": "Asia"}, {"name": "Malaysia", "lat": 4.2105, "lon": 101.9758, "region": "Asia"}, {"name": "Japan", "lat": 36.2048, "lon": 138.2529, "region": "Asia"}, {"name": "India", "lat": 20.5937, "lon": 78.9629, "region": "Asia"}, {"name": "Sri Lanka", "lat": 7.8731, "lon": 80.7718, "region": "Asia"}, {"name": "Sicily", "lat": 37.6, "lon": 13.365, "region": "Europe"}, {"name": "Austria", "lat": 47.5162, "lon": 14.5501, "region": "Europe"}, {"name": "Canada", "lat": 56.1304, "lon": -106.3468, "region": "Americas"}, {"name": "Mexico", "lat": 23.6345, "lon": -102.5528, "region": "Americas"}, {"name": "Poland", "lat": 51.9194, "lon": 19.1451, "region": "Europe"}, {"name": "Greece", "lat": 39.0742, "lon": 21.8243, "region": "Europe"}, {"name": "Germany", "lat": 51.1657, "lon": 10.4515, "region": "Europe"}, {"name": "Sweden", "lat": 60.1282, "lon": 18.6435, "region": "Europe"}, {"name": "Denmark", "lat": 56.2639, "lon": 9.5018, "region": "Europe"}, {"name": "Portugal", "lat": 39.3999, "lon": -8.2245, "region": "Europe"}, {"name": "Grand Canyon", "lat": 36.1069, "lon": -112.1129, "region": "Americas"}, {"name": "Rio de Janeiro, Brazil", "lat": -22.9068, "lon": -43.1729, "region": "Americas"}];
-  const map = L.map('map', { scrollWheelZoom:false }).setView([20, 10], 2);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
-  const markers = {};
-  const palette = { Europe:'#8fb8d3', Asia:'#9dc9b2', Americas:'#e8b8c3', Oceania:'#c9b6dd', Other:'#d7c5a5' };
-  places.forEach(place => {
-    const marker = L.circleMarker([place.lat, place.lon], { radius:8, color:'#ffffff', weight:2, fillColor:palette[place.region] || palette.Other, fillOpacity:.92 }).addTo(map).bindPopup(`<b>${place.name}</b><br><span>${place.region}</span>`);
-    markers[place.name] = marker;
-  });
-  const chips = document.getElementById('placeChips');
-  places.forEach(place => { const chip=document.createElement('button'); chip.className='chip'; chip.type='button'; chip.textContent=place.name; chip.onclick=()=>{ map.setView([place.lat, place.lon], Math.abs(place.lat)>50 ? 3 : 4, { animate:true }); markers[place.name].openPopup(); }; chips.appendChild(chip); });
-  if (places.length) { const bounds = L.latLngBounds(places.map(p => [p.lat,p.lon])); map.fitBounds(bounds, { padding:[28,28] }); }
-  let slideIndex = 0, isPlaying = false, timer;
-  const slides = document.getElementsByClassName('slide'); const counter = document.getElementById('counter'); const music = document.getElementById('bgMusic'); const playBtn = document.getElementById('playBtn'); const thumbs = document.querySelectorAll('.thumb');
-  function showSlide(n) { for (let slide of slides) slide.style.display='none'; for (let thumb of thumbs) thumb.classList.remove('active'); if (!slides[n]) return; slides[n].style.display='block'; if (thumbs[n]) thumbs[n].classList.add('active'); counter.innerText=(n+1)+' / '+slides.length; }
-  function nextSlide() { slideIndex=(slideIndex+1)%slides.length; showSlide(slideIndex); }
-  function prevSlide() { slideIndex=(slideIndex-1+slides.length)%slides.length; showSlide(slideIndex); }
-  function goToSlide(n) { slideIndex=n; showSlide(slideIndex); document.getElementById('photo-stories').scrollIntoView({ behavior:'smooth', block:'start' }); }
-  function togglePlay() { if (!isPlaying) { timer=setInterval(nextSlide,5000); music.play().catch(()=>{}); playBtn.innerText='⏸ Pause'; } else { clearInterval(timer); music.pause(); playBtn.innerText='▶ Play'; } isPlaying=!isPlaying; }
-  let startX = 0; const slideshow = document.getElementById('slideshow'); slideshow.addEventListener('touchstart', e => startX=e.touches[0].clientX); slideshow.addEventListener('touchend', e => { const endX=e.changedTouches[0].clientX; if (startX-endX>50) nextSlide(); if (endX-startX>50) prevSlide(); });
-  document.addEventListener('keydown', e => { if (e.key==='ArrowRight') nextSlide(); if (e.key==='ArrowLeft') prevSlide(); });
-  showSlide(slideIndex);
-</script>
+  <audio id="bgMusic" loop><source src="music/happy_travel_music.mp3" type="audio/mpeg"></audio>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const visitedPlaces = [
+          { name: 'Italy', lat: 41.8719, lon: 12.5674, region: 'Europe' },
+          { name: 'Vatican', lat: 41.9029, lon: 12.4534, region: 'Europe' },
+          { name: 'France', lat: 46.6034, lon: 1.8883, region: 'Europe' },
+          { name: 'Ireland', lat: 53.1424, lon: -7.6921, region: 'Europe' },
+          { name: 'United Kingdom', lat: 51.5074, lon: -0.1278, region: 'Europe' },
+          { name: 'Australia', lat: -25.2744, lon: 133.7751, region: 'Oceania' },
+          { name: 'Chile', lat: -35.6751, lon: -71.5430, region: 'Americas' },
+          { name: 'United States', lat: 37.0902, lon: -95.7129, region: 'Americas' },
+          { name: 'United Arab Emirates (UAE)', lat: 23.4241, lon: 53.8478, region: 'Asia' },
+          { name: 'Singapore', lat: 1.3521, lon: 103.8198, region: 'Asia' },
+          { name: 'Indonesia', lat: -0.7893, lon: 113.9213, region: 'Asia' },
+          { name: 'Thailand', lat: 15.8700, lon: 100.9925, region: 'Asia' },
+          { name: 'Vietnam', lat: 14.0583, lon: 108.2772, region: 'Asia' },
+          { name: 'Malaysia', lat: 4.2105, lon: 101.9758, region: 'Asia' },
+          { name: 'Japan', lat: 36.2048, lon: 138.2529, region: 'Asia' },
+          { name: 'India', lat: 20.5937, lon: 78.9629, region: 'Asia' },
+          { name: 'Sri Lanka', lat: 7.8731, lon: 80.7718, region: 'Asia' },
+          { name: 'Sicily', lat: 37.6000, lon: 13.3650, region: 'Europe' },
+          { name: 'Austria', lat: 47.5162, lon: 14.5501, region: 'Europe' },
+          { name: 'Canada', lat: 56.1304, lon: -106.3468, region: 'Americas' },
+          { name: 'Mexico', lat: 23.6345, lon: -102.5528, region: 'Americas' },
+          { name: 'Poland', lat: 51.9194, lon: 19.1451, region: 'Europe' },
+          { name: 'Greece', lat: 39.0742, lon: 21.8243, region: 'Europe' },
+          { name: 'Germany', lat: 51.1657, lon: 10.4515, region: 'Europe' },
+          { name: 'Sweden', lat: 60.1282, lon: 18.6435, region: 'Europe' },
+          { name: 'Denmark', lat: 56.2639, lon: 9.5018, region: 'Europe' },
+          { name: 'Portugal', lat: 39.3999, lon: -8.2245, region: 'Europe' },
+          { name: 'Grand Canyon', lat: 36.1069, lon: -112.1129, region: 'Americas' },
+          { name: 'Rio de Janeiro, Brazil', lat: -22.9068, lon: -43.1729, region: 'Americas' }
+        ];
+    const map = L.map('map', { scrollWheelZoom: false }).setView([20, 12], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+    const markers = [];
+    const markerGroup = L.layerGroup().addTo(map);
+    function makeMarker(place, i) {
+      const marker = L.circleMarker([place.lat, place.lon], { radius: 8, color: '#3b789a', weight: 2, fillColor: '#d7eaf5', fillOpacity: 0.9 }).bindPopup('<strong>' + place.name + '</strong><br><span>' + place.region + '</span>');
+      marker.placeRegion = place.region; marker.placeIndex = i; marker.addTo(markerGroup); markers.push(marker); return marker;
+    }
+    visitedPlaces.forEach(makeMarker);
+    function filterRegion(region, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); if (btn) btn.classList.add('active');
+      markerGroup.clearLayers(); markers.forEach(m => { if (region === 'All' || m.placeRegion === region) m.addTo(markerGroup); });
+      document.querySelectorAll('.place-chip').forEach(chip => { chip.style.display = (region === 'All' || chip.dataset.region === region) ? 'inline-flex' : 'none'; });
+    }
+    function focusPlace(i) { const p = visitedPlaces[i]; map.setView([p.lat, p.lon], 5); markers[i].openPopup(); document.getElementById('map-section').scrollIntoView({behavior:'smooth'}); }
+
+    let slideIndex = 0; let isPlaying = false; let timer = null;
+    const slides = Array.from(document.querySelectorAll('.slide')); const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    const counter = document.getElementById('counter'); const counterBottom = document.getElementById('counterBottom'); const music = document.getElementById('bgMusic'); const playBtn = document.getElementById('playBtn');
+    function showSlide(n) { slideIndex = (n + slides.length) % slides.length; slides.forEach((s,i)=>s.classList.toggle('active', i===slideIndex)); thumbs.forEach((t,i)=>t.classList.toggle('active', i===slideIndex)); const label=(slideIndex+1)+' / '+slides.length; counter.textContent=label; counterBottom.textContent=label; }
+    function nextSlide() { showSlide(slideIndex + 1); } function prevSlide() { showSlide(slideIndex - 1); } function goToSlide(n) { showSlide(n); }
+    function togglePlay() { if (!isPlaying) { timer=setInterval(nextSlide,5000); music.play().catch(()=>{}); playBtn.textContent='⏸ Pause'; } else { clearInterval(timer); music.pause(); playBtn.textContent='▶ Play'; } isPlaying=!isPlaying; }
+    let startX=0; const slideshow=document.getElementById('slideshow'); slideshow.addEventListener('touchstart',e=>startX=e.touches[0].clientX); slideshow.addEventListener('touchend',e=>{ const endX=e.changedTouches[0].clientX; if(startX-endX>50) nextSlide(); if(endX-startX>50) prevSlide(); });
+    document.addEventListener('keydown', e=>{ if(e.key==='ArrowRight') nextSlide(); if(e.key==='ArrowLeft') prevSlide(); });
+    showSlide(0);
+  </script>
 </body>
 </html>
